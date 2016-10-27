@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guilherme Cruz</title>
+    <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
+    <link>http://guicruzzs.github.io//</link>
+    <atom:link href="http://guicruzzs.github.io//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 26 Oct 2016 23:54:46 -0200</pubDate>
+    <lastBuildDate>Wed, 26 Oct 2016 23:54:46 -0200</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+      
+      <item>
+        <title>Seja Bem Vindo :)</title>
+        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;C&lt;/span&gt;omeço aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.&lt;/p&gt;
+
+&lt;p&gt;Minha carreira até o presente momento, foi construída sobre a linguagem &lt;a href=&quot;https://www.ruby-lang.org&quot;&gt;Ruby&lt;/a&gt;. Trabalhei com muitos projetos Ruby on Rails desde 2010, acompanho esse framework desde sua versão 2.3. Eu diria que 80% do meu conhecimento alcançado até aqui é em backend, e o restante, obviamente, em frontend.&lt;/p&gt;
+
+&lt;p&gt;Em virtude das linguagens compiladas começarem a ganhar destaque novamente no cenário de desenvolvimento de software, tenho me empenhado em aprender &lt;a href=&quot;https://golang.org/&quot;&gt;Go&lt;/a&gt;. O vídeo da home do site é uma palestra de apresentação da linguagem. No momento em que Andrew Gerrand diz que o serviço web provido pelo Go é utilizado na página principal do Google(google.com), fiquei espantado e curioso. Voilà! Ingressei nesse universo.&lt;/p&gt;
+
+&lt;p&gt;Aqui eu compartilharei o que já apanhei muito pra fazer, além é claro, de divulgar minhas novas descobertas. Será um prazer trazer esse conteúdo e poder ajudar alguém que precise!&lt;/p&gt;
+
+&lt;p&gt;Seja bem vindo criatura cósmica,&lt;/p&gt;
+
+&lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
+</description>
+        
+          <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;C&lt;/span&gt;omeço aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 26 Oct 2016 00:00:00 -0200</pubDate>
+        <link>http://guicruzzs.github.io//blog/example-post-formatting/</link>
+        <guid isPermaLink="true">http://guicruzzs.github.io//blog/example-post-formatting/</guid>
+        
+        
+      </item>
+      
+    
+  </channel>
+</rss>

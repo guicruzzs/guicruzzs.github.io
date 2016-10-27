@@ -1,0 +1,28 @@
+title: Guilherme Cruz
+description: Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza
+
+url: http://guicruzzs.github.io/
+baseurl: ""
+paginate_path: "blog/page:num/"
+permalink: blog/:title/
+
+markdown: kramdown
+highlighter: rouge
+gems: [jekyll-paginate]
+paginate: 5
+
+navigation:
+ - title: Home
+   url: /index.html
+ - title: Sobre
+   url: /about
+ # - title: Contato
+ #   url: /contact
+
+social:
+   github: guicruzzs
+   twitter: cruzguilherm
+   facebook: guilhermecruz.zs
+   email: guicruz.zs@gmail.com
+
+# google_analytics: "UA-58263416-1"
