@@ -5,9 +5,125 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://guicruzzs.github.io//</link>
     <atom:link href="http://guicruzzs.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 27 Oct 2016 00:06:22 -0200</pubDate>
-    <lastBuildDate>Thu, 27 Oct 2016 00:06:22 -0200</lastBuildDate>
+    <pubDate>Sun, 30 Oct 2016 13:45:33 -0200</pubDate>
+    <lastBuildDate>Sun, 30 Oct 2016 13:45:33 -0200</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      
+      <item>
+        <title>Primeiras dicas em Go</title>
+        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;R&lt;/span&gt;olou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.&lt;/p&gt;
+
+&lt;p&gt;Eu ando brincando com a linguagem Go há um mês. Desde então, uso as minhas horas vagas pra aprender e escrever algumas linhas de código em uma API bem simples de autenticação e banco de dados relacional.&lt;/p&gt;
+
+&lt;p&gt;No dia 29/10, tive o privilégio de me encontrar com uma parte da comunidade de Go no escritório da Red Hat em São Paulo. Rolou um workshop com o caríssimo &lt;a href=&quot;https://twitter.com/crgimenes&quot;&gt;Cesar Gimenes&lt;/a&gt;, ele trouxe o &lt;a href=&quot;https://github.com/crgimenes/Go-Hands-On&quot;&gt;Go Hands On&lt;/a&gt;, que é basicamente um repositório que ele mesmo criou com exemplos e explicações sobre alguns pontos importantes para a introdução à linguagem Go. Caso queira ficar por dentro dos eventos da comunidade de Go na &lt;em&gt;terra da garoa&lt;/em&gt;, basta se unir a essa turma no &lt;a href=&quot;http://www.meetup.com/pt-BR/golangbr/&quot;&gt;Meetup&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Caso você queira ver como foi o encontro, o carismático &lt;a href=&quot;https://twitter.com/ecanuto&quot;&gt;Everaldo Canuto&lt;/a&gt; fez um &lt;a href=&quot;https://www.tocadocanuto.com.br/2016/workshop-basico-de-go-lang/&quot;&gt;post em seu blog&lt;/a&gt; mostrando a galera ;)&lt;/p&gt;
+
+&lt;p&gt;Pra mim, foi uma excelente oportunidade de aplicar minha experiência de Ruby em outra linguagem. Tivemos presente programadores com uma bagagem legal em Go, o que nos permitiu explorar vários paralelos com outros cenários e linguagens. O próprio César confessou que poderíamos fazer um bingo com todas as linguagens que ele citava ao longo das explicações. Como a linguagem Go não é orientada a objetos, o conceito de pacotes é a forma que se tem de organizar a casa. Isso tem sido um ponto muito interessante pra minha evolução enquanto programador, pois essa mudança de paradigma me faz pensar fora da caixa (tanto em Go quanto em Ruby).&lt;/p&gt;
+
+&lt;p&gt;Você pode aprender sobre Go no próprio &lt;a href=&quot;https://golang.org/&quot;&gt;site da linguagem&lt;/a&gt;, que além de ter um &lt;a href=&quot;https://golang.org/doc/install&quot;&gt;Getting Started&lt;/a&gt;, tem também a &lt;a href=&quot;https://golang.org/doc/&quot;&gt;documentação&lt;/a&gt; e um &lt;a href=&quot;https://tour.golang.org/welcome/1&quot;&gt;tour&lt;/a&gt; que é &lt;em&gt;repetaculê&lt;/em&gt;! Decidi trazer aqui algumas coisas que eu vi no workshop e achei curiosas. Lembrando que você pode encontrar o material completo no repositório &lt;a href=&quot;https://github.com/crgimenes/Go-Hands-On&quot;&gt;Go Hands On&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;environment&quot;&gt;Environment&lt;/h3&gt;
+&lt;p&gt;Existe um comando pra formatar seu código fonte no padrão da linguagem Go. É esse meninão aqui:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;go fmt meu_arquivo.go&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Duas coisas que chamaram minha atenção aqui:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;O uso de &lt;em&gt;tabs&lt;/em&gt; ao invés de espaços&lt;/li&gt;
+  &lt;li&gt;As chaves abrem na mesma linha em que o método é declarado&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;E pronto! Fim de discussão! &lt;em&gt;Habemus padrão&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;variveis&quot;&gt;Variáveis:&lt;/h3&gt;
+&lt;p&gt;Funções anônimas existem e podem ser armazenadas em variáveis:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;ola&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Olá da função anônima!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ola&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Sempre admirei javascript pela forma com que trabalha com esse tipo de função. Gostei do que Go fez com essa possibilidade.&lt;/p&gt;
+
+&lt;h3 id=&quot;funes&quot;&gt;Funções:&lt;/h3&gt;
+&lt;p&gt;Mande a sua função pra dançar como parâmetro de uma função:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;c&quot;&gt;// função que recebe uma função como parâmetro&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printFunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;valor&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;valor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Finalmente entendi por que os métodos começam com letra maiúscula. Na verdade, a “maiúsculês” dessa primeira letra determina que esse método do pacote é público. Caso deseje criar um método privado, basta criar o método com a primeira letra minúscula.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;público &lt;em&gt;=&amp;gt;&lt;/em&gt; maiúsculo&lt;/li&gt;
+  &lt;li&gt;privado &lt;em&gt;=&amp;gt;&lt;/em&gt; minúsculo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Um conceito minimalista da máxima &lt;em&gt;Menos é mais&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;for&quot;&gt;For&lt;/h3&gt;
+&lt;p&gt;Quando você vê essa estrutura de iteração em Go você percebe que ela resume todas as outras formas de iteração conhecidas de outras linguagens. Isso significa que o &lt;em&gt;while&lt;/em&gt;, &lt;em&gt;loop&lt;/em&gt;, &lt;em&gt;do while&lt;/em&gt; e outras tantas formas de iteração nativas que você conhece é o &lt;em&gt;for&lt;/em&gt; de Go. Algo que me chamou a atenção foi o uso do &lt;em&gt;range&lt;/em&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;potato&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Batata&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;potato&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;potato[%v] = %q&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Ele resolve iteração de string, array e map de uma forma simples: Entrega sempre chave(índice) e valor.&lt;/p&gt;
+
+&lt;h3 id=&quot;concorrncia&quot;&gt;Concorrência&lt;/h3&gt;
+&lt;p&gt;O ponto que chama muito a atenção das pessoas em Go é o tratamento de concorrência. Além do conceito de &lt;em&gt;go routines&lt;/em&gt;, algo que me chamou a atenção foi o condicional &lt;em&gt;select&lt;/em&gt; que é um consumidor de canais, ele executa uma única vez o canal que comunicar algo primeiro, ou seja: ouve múltiplos canais e responde aquele que falar primeiro.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;canal 1 retornou :&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;canal 2 retornou :&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Outro ponto interessante sobre concorrência é o comportamento dos processos chamados pela &lt;em&gt;go routine&lt;/em&gt;: caso a aplicação seja finalizada, os canais e as rotinas são exterminados. Portanto, caso esse cenário não seja desejado, devemos criar uma condição de tratamento. Pra isso, é preciso que a aplicação receba sinais e os trate corretamente:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;chan&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;signal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Notify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Interrupt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// espera pelo sinal&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Bye bye Human!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Descobri um site &lt;em&gt;repetaculê&lt;/em&gt; pra ilustrar paralelismo em Go, que é o &lt;a href=&quot;http://divan.github.io/posts/go_concurrency_visualize/&quot;&gt;Visualizing Concurrency in Go&lt;/a&gt;. Tente não ficar impressionado com o carinho que houve pra construir esse conteúdo :)&lt;/p&gt;
+
+&lt;h3 id=&quot;pacotes&quot;&gt;Pacotes&lt;/h3&gt;
+&lt;p&gt;Tem uma documentação bacana sobre pacotes disponíveis em &lt;a href=&quot;http://labix.org/gopkg.in&quot;&gt;gopkg.in&lt;/a&gt;. Lá estão centralizadas várias bibliotecas que podem ajudar no dia a dia de trabalho, encontrar algumas ferramentas pra escavar e sair usando.&lt;/p&gt;
+
+&lt;h3 id=&quot;pra-fechar&quot;&gt;Pra fechar&lt;/h3&gt;
+&lt;p&gt;Fora esses pontos que eu trouxe, vimos muitas outras coisas no workshop, mas aí eu sugiro que você abra o &lt;a href=&quot;https://github.com/crgimenes/Go-Hands-On&quot;&gt;repositório&lt;/a&gt; e confira o material na íntegra, além, é claro, de contribuir com ele na construção do conhecimento!&lt;/p&gt;
+
+&lt;p&gt;Gostaria de aproveitar e agradecer ao &lt;a href=&quot;https://twitter.com/crgimenes&quot;&gt;Cesar&lt;/a&gt; pelo material e pela disponibilidade, além da organização do &lt;a href=&quot;https://twitter.com/jeffprestes/&quot;&gt;Jeff Prestes&lt;/a&gt; e deixar o meu muitíssimo obrigado ao pessoal da Red Hat por apoiar o encontro.&lt;/p&gt;
+
+&lt;p&gt;Agora me sinto mais preparado pra continuar a desenvolver o trabalho com a minha humilde API. Espero em breve poder fazer coisas cada vez maiores com essa linguagem.&lt;/p&gt;
+
+&lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
+</description>
+        
+          <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;R&lt;/span&gt;olou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 30 Oct 2016 00:00:00 -0200</pubDate>
+        <link>http://guicruzzs.github.io//blog/primeiras-dicas-em-go/</link>
+        <guid isPermaLink="true">http://guicruzzs.github.io//blog/primeiras-dicas-em-go/</guid>
+        
+        
+      </item>
+      
     
       
       <item>
@@ -30,8 +146,8 @@
 </description>
         
         <pubDate>Wed, 26 Oct 2016 00:00:00 -0200</pubDate>
-        <link>http://guicruzzs.github.io//blog/example-post-formatting/</link>
-        <guid isPermaLink="true">http://guicruzzs.github.io//blog/example-post-formatting/</guid>
+        <link>http://guicruzzs.github.io//blog/seja-bem-vindo/</link>
+        <guid isPermaLink="true">http://guicruzzs.github.io//blog/seja-bem-vindo/</guid>
         
         
       </item>
