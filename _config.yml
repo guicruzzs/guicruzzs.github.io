@@ -14,10 +14,10 @@ paginate: 5
 navigation:
  - title: Home
    url: /index.html
+ - title: Feed
+   url: feed.xml
  - title: Sobre
    url: /about
- # - title: Contato
- #   url: /contact
 
 social:
    github: guicruzzs
