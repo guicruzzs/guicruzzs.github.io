@@ -15,7 +15,7 @@ layout: null
       {% unless post.link %}
       <item>
         <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
+        <content>{{ post.content | xml_escape }}</content>
         {% if post.excerpt %}
           <description>{{ post.excerpt | xml_escape }}</description>
         {% else %}

@@ -3,16 +3,16 @@
   <channel>
     <title>Guilherme Cruz</title>
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
-    <link>http://guicruzzs.github.io//</link>
-    <atom:link href="http://guicruzzs.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 30 Oct 2016 17:25:14 -0200</pubDate>
-    <lastBuildDate>Sun, 30 Oct 2016 17:25:14 -0200</lastBuildDate>
+    <link>http://gcruz.com.br/</link>
+    <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 31 Oct 2016 14:59:24 -0200</pubDate>
+    <lastBuildDate>Mon, 31 Oct 2016 14:59:24 -0200</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       
       <item>
         <title>Primeiras dicas em Go</title>
-        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;R&lt;/span&gt;olou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.&lt;/p&gt;
+        <content>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;R&lt;/span&gt;olou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.&lt;/p&gt;
 
 &lt;p&gt;Eu ando brincando com a linguagem Go há um mês. Desde então, uso as minhas horas vagas pra aprender e escrever algumas linhas de código em uma API bem simples de autenticação e banco de dados relacional.&lt;/p&gt;
 
@@ -111,15 +111,15 @@
 &lt;p&gt;Agora me sinto mais preparado pra continuar a desenvolver o trabalho com a minha humilde API. Espero em breve poder fazer coisas cada vez maiores com essa linguagem.&lt;/p&gt;
 
 &lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
-</description>
+</content>
         
           <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;R&lt;/span&gt;olou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.&lt;/p&gt;
 
 </description>
         
         <pubDate>Sun, 30 Oct 2016 00:00:00 -0200</pubDate>
-        <link>http://guicruzzs.github.io//blog/primeiras-dicas-em-go/</link>
-        <guid isPermaLink="true">http://guicruzzs.github.io//blog/primeiras-dicas-em-go/</guid>
+        <link>http://gcruz.com.br/blog/primeiras-dicas-em-go/</link>
+        <guid isPermaLink="true">http://gcruz.com.br/blog/primeiras-dicas-em-go/</guid>
         
         
       </item>
@@ -128,7 +128,7 @@
       
       <item>
         <title>Seja Bem Vindo :)</title>
-        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;C&lt;/span&gt;omeço aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.&lt;/p&gt;
+        <content>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;C&lt;/span&gt;omeço aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.&lt;/p&gt;
 
 &lt;p&gt;Minha carreira até o presente momento, foi construída sobre a linguagem &lt;a href=&quot;https://www.ruby-lang.org&quot;&gt;Ruby&lt;/a&gt;. Trabalhei com muitos projetos Ruby on Rails desde 2010, acompanho esse framework desde sua versão 2.3. Eu diria que 80% do meu conhecimento alcançado até aqui é em backend, e o restante, obviamente, em frontend.&lt;/p&gt;
 
@@ -139,15 +139,15 @@
 &lt;p&gt;Seja bem vindo criatura cósmica,&lt;/p&gt;
 
 &lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
-</description>
+</content>
         
           <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;C&lt;/span&gt;omeço aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.&lt;/p&gt;
 
 </description>
         
         <pubDate>Wed, 26 Oct 2016 00:00:00 -0200</pubDate>
-        <link>http://guicruzzs.github.io//blog/seja-bem-vindo/</link>
-        <guid isPermaLink="true">http://guicruzzs.github.io//blog/seja-bem-vindo/</guid>
+        <link>http://gcruz.com.br/blog/seja-bem-vindo/</link>
+        <guid isPermaLink="true">http://gcruz.com.br/blog/seja-bem-vindo/</guid>
         
         
       </item>
