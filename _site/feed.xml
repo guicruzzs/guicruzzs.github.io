@@ -5,8 +5,8 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 31 Oct 2016 14:59:24 -0200</pubDate>
-    <lastBuildDate>Mon, 31 Oct 2016 14:59:24 -0200</lastBuildDate>
+    <pubDate>Mon, 31 Oct 2016 15:07:02 -0200</pubDate>
+    <lastBuildDate>Mon, 31 Oct 2016 15:07:02 -0200</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       
@@ -112,11 +112,6 @@
 
 &lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
 </content>
-        
-          <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;R&lt;/span&gt;olou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.&lt;/p&gt;
-
-</description>
-        
         <pubDate>Sun, 30 Oct 2016 00:00:00 -0200</pubDate>
         <link>http://gcruz.com.br/blog/primeiras-dicas-em-go/</link>
         <guid isPermaLink="true">http://gcruz.com.br/blog/primeiras-dicas-em-go/</guid>
@@ -140,11 +135,6 @@
 
 &lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
 </content>
-        
-          <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;C&lt;/span&gt;omeço aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.&lt;/p&gt;
-
-</description>
-        
         <pubDate>Wed, 26 Oct 2016 00:00:00 -0200</pubDate>
         <link>http://gcruz.com.br/blog/seja-bem-vindo/</link>
         <guid isPermaLink="true">http://gcruz.com.br/blog/seja-bem-vindo/</guid>
