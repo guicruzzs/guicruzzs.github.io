@@ -15,7 +15,7 @@ navigation:
  - title: Home
    url: /index.html
  - title: Feed
-   url: feed.xml
+   url: /feed.xml
  - title: Sobre
    url: /about
 
