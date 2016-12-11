@@ -5,8 +5,8 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 11 Dec 2016 02:51:14 -0200</pubDate>
-    <lastBuildDate>Sun, 11 Dec 2016 02:51:14 -0200</lastBuildDate>
+    <pubDate>Sun, 11 Dec 2016 16:26:04 -0200</pubDate>
+    <lastBuildDate>Sun, 11 Dec 2016 16:26:04 -0200</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       
@@ -18,7 +18,7 @@
 
 &lt;h3 id=&quot;driver&quot;&gt;Driver&lt;/h3&gt;
 
-&lt;p&gt;Vamos tirar esse rancor do seu coração e vamos olhar para a integração de banco  de dados em Go por meio da biblioteca &lt;a href=&quot;https://golang.org/pkg/database/sql/&quot;&gt;database/sql&lt;/a&gt;. Alguém já se preocupou em padronizar essa comunicação SQL e criou essa interface padrão que está definida nesse projeto &lt;em&gt;database/sql&lt;/em&gt;. A partir daqui, a única coisa que você vai precisar é se apropriar de um driver da sua aplicação de banco que foi implementado em cima dessa interface padrão. Tem uma &lt;a href=&quot;https://golang.org/pkg/database/sql/&quot;&gt;lista oficial aqui&lt;/a&gt; das principais implementações de drivers, escolha aquela que mais rolar um clima.&lt;/p&gt;
+&lt;p&gt;Vamos tirar esse rancor do seu coração e vamos olhar para a integração de banco  de dados em Go por meio da biblioteca &lt;a href=&quot;https://golang.org/pkg/database/sql/&quot;&gt;database/sql&lt;/a&gt;. Alguém já se preocupou em padronizar essa comunicação SQL e criou essa interface padrão que está definida nesse projeto &lt;em&gt;database/sql&lt;/em&gt;. A partir daqui, a única coisa que você precisa é se apropriar de um driver da sua aplicação de banco que foi implementado em cima dessa interface padrão. Tem uma &lt;a href=&quot;https://golang.org/pkg/database/sql/&quot;&gt;lista oficial aqui&lt;/a&gt; das principais implementações de drivers, escolha aquela que mais rolar um clima.&lt;/p&gt;
 
 &lt;p&gt;Eu escolhi um driver de &lt;a href=&quot;https://github.com/go-sql-driver/mysql/&quot;&gt;MySQL&lt;/a&gt; pra exemplificar o uso, mas como a interface é a mesma pra todos, o conhecimento aqui compartilhado pode servir para outras integrações.&lt;/p&gt;
 
@@ -47,9 +47,9 @@
     &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Algo muito importante de se entender, é que o método &lt;em&gt;sql.Open&lt;/em&gt; não entrega uma única conexão com o banco, mas sim um pool “auto gerenciado” de conexões. Entretanto, você vai tratar esse &lt;em&gt;*sql.DB&lt;/em&gt; como se fosse uma conexão mesmo. Dá pra limitar a quantidade de conexões do pool pela &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns&quot;&gt;quantidade de conexões que estão ociosas&lt;/a&gt;, ou &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns&quot;&gt;pela quantidade conexões abertas&lt;/a&gt; ou ainda &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime&quot;&gt;pelo tempo conexão&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Algo muito importante de se entender é que o método &lt;em&gt;sql.Open&lt;/em&gt; não entrega uma única conexão com o banco, mas sim um pool “auto gerenciado” de conexões. Entretanto, você vai tratar esse &lt;em&gt;*sql.DB&lt;/em&gt; como se fosse uma conexão mesmo. Dá pra limitar a quantidade de conexões do pool pela &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns&quot;&gt;quantidade de conexões que estão ociosas&lt;/a&gt;, ou &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns&quot;&gt;pela quantidade conexões abertas&lt;/a&gt; ou ainda &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime&quot;&gt;pelo tempo conexão&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Sendo assim, o mais sensato é iniciar sua aplicação criando essa “conexão” com o banco e fechá-la ao encerrar sua aplicação. Dessa maneira, o pool de conexões estará disponível ao longo de toda a execução de sua aplicação e as conexões surgirão de acordo com a necessidade e se eliminarão com as suas configurações de quantidade de conexões no pool(caso hajam).&lt;/p&gt;
+&lt;p&gt;Sendo assim, o mais sensato é iniciar sua aplicação criando essa “conexão” com o banco e fechá-la ao encerrar sua aplicação. Dessa maneira, o pool de conexões estará disponível ao longo de toda a execução de sua aplicação, as conexões surgirão de acordo com a necessidade e se eliminarão com as suas configurações de quantidade de conexões no pool(caso hajam).&lt;/p&gt;
 
 &lt;p&gt;Pra encerrar o pool de conexões com o banco, basta chamar a função &lt;em&gt;Close&lt;/em&gt;:&lt;/p&gt;
 

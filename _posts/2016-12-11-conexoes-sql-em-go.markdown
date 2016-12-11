@@ -10,7 +10,7 @@ Você está lá empolgadão com a sua nova API, que vai performar lindamente em 
 
 ### Driver
 
-Vamos tirar esse rancor do seu coração e vamos olhar para a integração de banco  de dados em Go por meio da biblioteca [database/sql](https://golang.org/pkg/database/sql/). Alguém já se preocupou em padronizar essa comunicação SQL e criou essa interface padrão que está definida nesse projeto *database/sql*. A partir daqui, a única coisa que você vai precisar é se apropriar de um driver da sua aplicação de banco que foi implementado em cima dessa interface padrão. Tem uma [lista oficial aqui](https://golang.org/pkg/database/sql/) das principais implementações de drivers, escolha aquela que mais rolar um clima. 
+Vamos tirar esse rancor do seu coração e vamos olhar para a integração de banco  de dados em Go por meio da biblioteca [database/sql](https://golang.org/pkg/database/sql/). Alguém já se preocupou em padronizar essa comunicação SQL e criou essa interface padrão que está definida nesse projeto *database/sql*. A partir daqui, a única coisa que você precisa é se apropriar de um driver da sua aplicação de banco que foi implementado em cima dessa interface padrão. Tem uma [lista oficial aqui](https://golang.org/pkg/database/sql/) das principais implementações de drivers, escolha aquela que mais rolar um clima. 
 
 Eu escolhi um driver de [MySQL](https://github.com/go-sql-driver/mysql/) pra exemplificar o uso, mas como a interface é a mesma pra todos, o conhecimento aqui compartilhado pode servir para outras integrações.
 
@@ -40,9 +40,9 @@ func Connect() *sql.DB {
 }
 {% endhighlight %}
 
-Algo muito importante de se entender, é que o método *sql.Open* não entrega uma única conexão com o banco, mas sim um pool "auto gerenciado" de conexões. Entretanto, você vai tratar esse **sql.DB* como se fosse uma conexão mesmo. Dá pra limitar a quantidade de conexões do pool pela [quantidade de conexões que estão ociosas](https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns), ou [pela quantidade conexões abertas](https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns) ou ainda [pelo tempo conexão](https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime).
+Algo muito importante de se entender é que o método *sql.Open* não entrega uma única conexão com o banco, mas sim um pool "auto gerenciado" de conexões. Entretanto, você vai tratar esse **sql.DB* como se fosse uma conexão mesmo. Dá pra limitar a quantidade de conexões do pool pela [quantidade de conexões que estão ociosas](https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns), ou [pela quantidade conexões abertas](https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns) ou ainda [pelo tempo conexão](https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime).
 
-Sendo assim, o mais sensato é iniciar sua aplicação criando essa "conexão" com o banco e fechá-la ao encerrar sua aplicação. Dessa maneira, o pool de conexões estará disponível ao longo de toda a execução de sua aplicação e as conexões surgirão de acordo com a necessidade e se eliminarão com as suas configurações de quantidade de conexões no pool(caso hajam).
+Sendo assim, o mais sensato é iniciar sua aplicação criando essa "conexão" com o banco e fechá-la ao encerrar sua aplicação. Dessa maneira, o pool de conexões estará disponível ao longo de toda a execução de sua aplicação, as conexões surgirão de acordo com a necessidade e se eliminarão com as suas configurações de quantidade de conexões no pool(caso hajam).
 
 Pra encerrar o pool de conexões com o banco, basta chamar a função *Close*:
 {% highlight go %}
