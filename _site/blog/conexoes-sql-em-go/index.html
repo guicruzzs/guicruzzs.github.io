@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Guilherme Cruz</title>
+    <title>Conexões SQL em Go</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
@@ -20,7 +20,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <!--[if IE 8]><link rel="stylesheet" href="/assets/css/ie.css"><![endif]-->
-    <link rel="canonical" href="http://gcruz.com.br/">
+    <link rel="canonical" href="http://gcruz.com.br/blog/conexoes-sql-em-go/">
 
     <!-- Modernizr -->
     <script src="/assets/js/modernizr.custom.15390.js" type="text/javascript"></script>
@@ -68,32 +68,94 @@ ga('send', 'pageview');
 
    <div class="content">
       <div class="container">
-         <div class="home" id="home">
-  <ul class="posts noList">
+         <div class="post">
+  
+  <h1 class="postTitle">Conexões SQL em Go</h1>
+  <p class="meta">December 11, 2016 | <span class="time">3</span> Minute Read</p>
+  
+  <p class="intro"><span class="dropcap">U</span>tilizando conexões SQL em Go por meio da interface de <a href="https://golang.org/pkg/database/sql/">database/sql</a>? Tenho alguns pontos pra compartilhar contigo.</p>
+
+<p>Você está lá empolgadão com a sua nova API, que vai performar lindamente em Go, aí chega na parte da integração com o seu banco e fica confuso. Não que tenha acontecido comigo, mas conheço um colega meu que passou por isso.</p>
+
+<h3 id="driver">Driver</h3>
+
+<p>Vamos tirar esse rancor do seu coração e vamos olhar para a integração de banco  de dados em Go por meio da biblioteca <a href="https://golang.org/pkg/database/sql/">database/sql</a>. Alguém já se preocupou em padronizar essa comunicação SQL e criou essa interface padrão que está definida nesse projeto <em>database/sql</em>. A partir daqui, a única coisa que você vai precisar é se apropriar de um driver da sua aplicação de banco que foi implementado em cima dessa interface padrão. Tem uma <a href="https://golang.org/pkg/database/sql/">lista oficial aqui</a> das principais implementações de drivers, escolha aquela que mais rolar um clima.</p>
+
+<p>Eu escolhi um driver de <a href="https://github.com/go-sql-driver/mysql/">MySQL</a> pra exemplificar o uso, mas como a interface é a mesma pra todos, o conhecimento aqui compartilhado pode servir para outras integrações.</p>
+
+<h3 id="conexo">Conexão</h3>
+
+<p>O primeiro passo, é abrir a conexão com o banco de dados:</p>
+
+<figure class="highlight"><pre><code class="language-go" data-lang="go"><span class="k">package</span><span class="x"> </span><span class="n">db</span><span class="x">
+</span><span class="k">import</span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+    </span><span class="s">"database/sql"</span><span class="x">
+</span><span class="c">/* importei com '_' pois é preciso inicializar a biblioteca, e evitar
+   efeitos colaterais (como o fato de não chamá-la diretamente no seu
+   código) */</span><span class="x">
+    </span><span class="n">_</span><span class="x"> </span><span class="s">"github.com/go-sql-driver/mysql"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="c">// a ideia dessa função aqui é retornar uma forma de conexão com o banco</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">Connect</span><span class="p">()</span><span class="x"> </span><span class="o">*</span><span class="n">sql</span><span class="o">.</span><span class="n">DB</span><span class="x"> </span><span class="p">{</span><span class="x">
+</span><span class="c">//  aqui você substitui as variáveis pelas suas configs</span><span class="x">
+    </span><span class="n">driverConfig</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"%s:%s@tcp(%s:%s)/%s"</span><span class="p">,</span><span class="x"> </span><span class="s">"user"</span><span class="p">,</span><span class="x"> </span><span class="s">"pass"</span><span class="p">,</span><span class="x"> </span><span class="s">"host"</span><span class="p">,</span><span class="x"> </span><span class="s">"port"</span><span class="p">,</span><span class="x"> </span><span class="s">"database"</span><span class="p">)</span><span class="x">
+    </span><span class="n">connection</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">sql</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"mysql"</span><span class="p">,</span><span class="x"> </span><span class="n">driverConfig</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"database.Connect ERROR: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="n">connection</span><span class="x">
+</span><span class="p">}</span></code></pre></figure>
+
+<p>Algo muito importante de se entender, é que o método <em>sql.Open</em> não entrega uma única conexão com o banco, mas sim um pool “auto gerenciado” de conexões. Entretanto, você vai tratar esse <em>*sql.DB</em> como se fosse uma conexão mesmo. Dá pra limitar a quantidade de conexões do pool pela <a href="https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns">quantidade de conexões que estão ociosas</a>, ou <a href="https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns">pela quantidade conexões abertas</a> ou ainda <a href="https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime">pelo tempo conexão</a>.</p>
+
+<p>Sendo assim, o mais sensato é iniciar sua aplicação criando essa “conexão” com o banco e fechá-la ao encerrar sua aplicação. Dessa maneira, o pool de conexões estará disponível ao longo de toda a execução de sua aplicação e as conexões surgirão de acordo com a necessidade e se eliminarão com as suas configurações de quantidade de conexões no pool(caso hajam).</p>
+
+<p>Pra encerrar o pool de conexões com o banco, basta chamar a função <em>Close</em>:</p>
+
+<figure class="highlight"><pre><code class="language-go" data-lang="go"><span class="n">connection</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">Connect</span><span class="p">()</span><span class="x">
+</span><span class="n">connection</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span><span class="x">
+
+</span><span class="c">// Você pode também criar uma função pra isso, caso desejar</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">Disconnect</span><span class="p">(</span><span class="n">connection</span><span class="x"> </span><span class="o">*</span><span class="n">sql</span><span class="o">.</span><span class="n">DB</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">connection</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span><span class="x">
+</span><span class="p">}</span></code></pre></figure>
+
+<h3 id="pra-fechar">Pra fechar</h3>
+
+<p>Obviamente que existem alguns frameworks que já gerenciam isso de alguma forma pra você, mas caso seja da sua vontade utilizar e integrar com essas soluções diretamente, esse aqui é o caminho das pedras.</p>
+
+<p>Conhece alguma forma melhor de fazer isso, ou tem alguma sugestão? Deixe nos comentários uma contribuição ;)</p>
+
+<p>Bom dia e boa sorte!</p>
+
+
+  <!-- COMMENTS -->
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+    this.page.url = window.location.origin;
+    this.page.identifier = '/blog/conexoes-sql-em-go/'.replace(/.\W/, '');
+    };
     
-      <li>
-        <span class="date">December 11, 2016</span>
-        <h3><a class="post-link" href="/blog/conexoes-sql-em-go/">Conexões SQL em Go</a></h3>
-        <p class="description">Utilizando conexões SQL em Go por meio da interface de database/sql? Tenho alguns pontos pra compartilhar contigo.Você está lá empolgadão com a sua nova API, que vai performar lindamente em Go, aí chega na parte da integração com o seu banco e fic...</p>
-      </li>
-    
-      <li>
-        <span class="date">October 30, 2016</span>
-        <h3><a class="post-link" href="/blog/primeiras-dicas-em-go/">Primeiras dicas em Go</a></h3>
-        <p class="description">Rolou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.Eu ando brincando com a linguagem Go há um mês. Desde então, uso as minhas horas vagas pra aprender ...</p>
-      </li>
-    
-      <li>
-        <span class="date">October 26, 2016</span>
-        <h3><a class="post-link" href="/blog/seja-bem-vindo/">Seja Bem Vindo :)</a></h3>
-        <p class="description">Começo aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.Minha carreira até o presente momento, foi construída sobre a linguagem Ruby. Trabalhei com muitos projetos Ruby on R...</p>
-      </li>
-    
-  </ul>
-  <!-- Pagination links -->
-  <div class="pagination">
-    
-    
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//guilherme-cruz.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  
+  <!-- POST NAVIGATION -->
+  <div class="postNav clearfix">
+     
+      <a class="prev" href="/blog/primeiras-dicas-em-go/"><span>&laquo;&nbsp;Primeiras dicas em Go</span>
+      
+    </a>
+      
+     
   </div>
 </div>
 

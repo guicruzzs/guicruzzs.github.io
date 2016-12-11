@@ -5,9 +5,77 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 31 Oct 2016 15:09:56 -0200</pubDate>
-    <lastBuildDate>Mon, 31 Oct 2016 15:09:56 -0200</lastBuildDate>
+    <pubDate>Sun, 11 Dec 2016 02:51:14 -0200</pubDate>
+    <lastBuildDate>Sun, 11 Dec 2016 02:51:14 -0200</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      
+      <item>
+        <title>Conexões SQL em Go</title>
+        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;U&lt;/span&gt;tilizando conexões SQL em Go por meio da interface de &lt;a href=&quot;https://golang.org/pkg/database/sql/&quot;&gt;database/sql&lt;/a&gt;? Tenho alguns pontos pra compartilhar contigo.&lt;/p&gt;
+
+&lt;p&gt;Você está lá empolgadão com a sua nova API, que vai performar lindamente em Go, aí chega na parte da integração com o seu banco e fica confuso. Não que tenha acontecido comigo, mas conheço um colega meu que passou por isso.&lt;/p&gt;
+
+&lt;h3 id=&quot;driver&quot;&gt;Driver&lt;/h3&gt;
+
+&lt;p&gt;Vamos tirar esse rancor do seu coração e vamos olhar para a integração de banco  de dados em Go por meio da biblioteca &lt;a href=&quot;https://golang.org/pkg/database/sql/&quot;&gt;database/sql&lt;/a&gt;. Alguém já se preocupou em padronizar essa comunicação SQL e criou essa interface padrão que está definida nesse projeto &lt;em&gt;database/sql&lt;/em&gt;. A partir daqui, a única coisa que você vai precisar é se apropriar de um driver da sua aplicação de banco que foi implementado em cima dessa interface padrão. Tem uma &lt;a href=&quot;https://golang.org/pkg/database/sql/&quot;&gt;lista oficial aqui&lt;/a&gt; das principais implementações de drivers, escolha aquela que mais rolar um clima.&lt;/p&gt;
+
+&lt;p&gt;Eu escolhi um driver de &lt;a href=&quot;https://github.com/go-sql-driver/mysql/&quot;&gt;MySQL&lt;/a&gt; pra exemplificar o uso, mas como a interface é a mesma pra todos, o conhecimento aqui compartilhado pode servir para outras integrações.&lt;/p&gt;
+
+&lt;h3 id=&quot;conexo&quot;&gt;Conexão&lt;/h3&gt;
+
+&lt;p&gt;O primeiro passo, é abrir a conexão com o banco de dados:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;fmt&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;database/sql&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;/* importei com '_' pois é preciso inicializar a biblioteca, e evitar
+   efeitos colaterais (como o fato de não chamá-la diretamente no seu
+   código) */&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;github.com/go-sql-driver/mysql&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// a ideia dessa função aqui é retornar uma forma de conexão com o banco&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//  aqui você substitui as variáveis pelas suas configs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driverConfig&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s:%s@tcp(%s:%s)/%s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pass&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;host&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;port&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;database&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mysql&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driverConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;database.Connect ERROR: %s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Algo muito importante de se entender, é que o método &lt;em&gt;sql.Open&lt;/em&gt; não entrega uma única conexão com o banco, mas sim um pool “auto gerenciado” de conexões. Entretanto, você vai tratar esse &lt;em&gt;*sql.DB&lt;/em&gt; como se fosse uma conexão mesmo. Dá pra limitar a quantidade de conexões do pool pela &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns&quot;&gt;quantidade de conexões que estão ociosas&lt;/a&gt;, ou &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns&quot;&gt;pela quantidade conexões abertas&lt;/a&gt; ou ainda &lt;a href=&quot;https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime&quot;&gt;pelo tempo conexão&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sendo assim, o mais sensato é iniciar sua aplicação criando essa “conexão” com o banco e fechá-la ao encerrar sua aplicação. Dessa maneira, o pool de conexões estará disponível ao longo de toda a execução de sua aplicação e as conexões surgirão de acordo com a necessidade e se eliminarão com as suas configurações de quantidade de conexões no pool(caso hajam).&lt;/p&gt;
+
+&lt;p&gt;Pra encerrar o pool de conexões com o banco, basta chamar a função &lt;em&gt;Close&lt;/em&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;// Você pode também criar uma função pra isso, caso desejar&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Disconnect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;pra-fechar&quot;&gt;Pra fechar&lt;/h3&gt;
+
+&lt;p&gt;Obviamente que existem alguns frameworks que já gerenciam isso de alguma forma pra você, mas caso seja da sua vontade utilizar e integrar com essas soluções diretamente, esse aqui é o caminho das pedras.&lt;/p&gt;
+
+&lt;p&gt;Conhece alguma forma melhor de fazer isso, ou tem alguma sugestão? Deixe nos comentários uma contribuição ;)&lt;/p&gt;
+
+&lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 11 Dec 2016 00:00:00 -0200</pubDate>
+        <link>http://gcruz.com.br/blog/conexoes-sql-em-go/</link>
+        <guid isPermaLink="true">http://gcruz.com.br/blog/conexoes-sql-em-go/</guid>
+        
+        
+      </item>
+      
     
       
       <item>
