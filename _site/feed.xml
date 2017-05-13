@@ -5,9 +5,126 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 11 Dec 2016 16:26:04 -0200</pubDate>
-    <lastBuildDate>Sun, 11 Dec 2016 16:26:04 -0200</lastBuildDate>
+    <pubDate>Sat, 13 May 2017 17:07:51 -0300</pubDate>
+    <lastBuildDate>Sat, 13 May 2017 17:07:51 -0300</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      
+      <item>
+        <title>Conexões remotas de USB via usbip</title>
+        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;I&lt;/span&gt;magine utilizar a rede para compartilhar uma conexão de um dispositivo USB, seja ele uma câmera, um HD externo, mouse, impressora, ou qualquer outro dispositivo. Há uma ferramenta no repositório Linux que resolve isso.&lt;/p&gt;
+
+&lt;p&gt;Foi com essa necessidade que eu conheci o &lt;a href=&quot;http://usbip.sourceforge.net/&quot;&gt;usbip&lt;/a&gt;. Ele foi criado para abstrair uma conexão USB em um device genérico (&lt;em&gt;server&lt;/em&gt;), por meio do VHCI, e a partir daí transmitir os dados pra outro computador via rede. Isso permite que este receptor (&lt;em&gt;client&lt;/em&gt;) dos dados USB possa montar seu próprio device e injetar a comunicação que ele recebe via rede.&lt;/p&gt;
+
+&lt;p&gt;Acabei de descrever o processo como se ele fosse numa mão única, um &lt;em&gt;read-only&lt;/em&gt;, mas não é verdade. O &lt;em&gt;client&lt;/em&gt; também pode enviar os dados pro &lt;em&gt;server&lt;/em&gt; pela mesma comunicação anteriormente estabelecida.&lt;/p&gt;
+
+&lt;p&gt;Quem gerencia os devices que subirão, bem como a comunicação entre &lt;em&gt;clients&lt;/em&gt; e &lt;em&gt;server&lt;/em&gt; é o ilustríssimo usbip. E você não leu errado, &lt;em&gt;clients&lt;/em&gt; no plural mesmo, é possível que um mesmo dispositivo seja compartilhado com diversos outras máquinas.&lt;/p&gt;
+
+&lt;p&gt;O usbip, criado por &lt;strong&gt;Takahiro Hirofuchi&lt;/strong&gt; com uma &lt;a href=&quot;https://www.usenix.org/legacy/events/usenix05/tech/freenix/hirofuchi/hirofuchi_html/index.html&quot;&gt;publicação inicial&lt;/a&gt; que explica os conceitos e a arquitetura da aplicação. Caso você queira entender melhor como as coisas funcionam debaixo do capô, eu sugiro que olhe também o &lt;a href=&quot;http://usbip.sourceforge.net/&quot;&gt;site original da aplicação&lt;/a&gt; e o &lt;a href=&quot;https://github.com/torvalds/linux/tree/master/tools/usb/usbip&quot;&gt;repositório&lt;/a&gt; que atualmente está no no &lt;em&gt;core tools&lt;/em&gt; do Linux (obrigado L. Torvalds).&lt;/p&gt;
+
+&lt;p&gt;O usbip foi concebido para integrar devices entre diferentes sistemas operacionais. Eu fiz alguns testes com Linux e Windows e verifiquei que funciona perfeitamente &lt;strong&gt;apenas entre duas máquinas com Linux&lt;/strong&gt;. Eu segui as instruções, instalando e compilando os drivers pro Windows, mas aparentemente surgiu alguma incompatibilidade que não foi tratada. Eu gostaria de ter testando também no macOS antes dessa publicação, mas não foi possível, então sinta-se à vontade :).&lt;/p&gt;
+
+&lt;h3 id=&quot;instalao&quot;&gt;Instalação&lt;/h3&gt;
+
+&lt;p&gt;Atualmente a versão estável do usbip é a 2.0. Para instalar, basta que você baixe o &lt;a href=&quot;https://github.com/torvalds/linux/tree/master/tools/usb/usbip&quot;&gt;código fonte&lt;/a&gt; e o compile, como eu utilizo a distribuição Ubuntu 16.04, instalei o pacote do &lt;em&gt;tools-generic&lt;/em&gt; da seguinte forma:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo apt-get install linux-tools-generic&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;ateno&quot;&gt;Atenção&lt;/h4&gt;
+&lt;p&gt;Utilizaremos duas aplicações: &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;usbip&lt;/code&gt;&lt;/strong&gt; e &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;usbipd&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;No caso do Ubuntu, você terá a aplicação disponível na pasta &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/lib/linux-tools/versao-do-kernel-generic/&lt;/code&gt;
+onde &lt;code class=&quot;highlighter-rouge&quot;&gt;versao-do-kernel-generic&lt;/code&gt; pode e vai variar de acordo com a versão da &lt;em&gt;tools-generic&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Caso você tenha compilado, essas duas aplicações estarão disponíveis por padrão dentro da pasta &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;server&quot;&gt;Server&lt;/h3&gt;
+
+&lt;p&gt;Antes de rodar a aplicação que irá distribuir um dispositivo USB, é preciso habilitar 2 módulos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo modprobe usbip_core
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo modprobe usbip_host&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Basta então que invoque a aplicação &lt;em&gt;server&lt;/em&gt;, em sua respectiva pasta:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo ./usbipd
+usbipd: info: starting usbipd &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;usbip-utils 2.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+usbipd: info: listening on 0.0.0.0:3240
+usbipd: info: listening on :::3240&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;A aplicação responde avisando onde estará disponível a comunicação com outro device, no caso, por padrão na porta &lt;code class=&quot;highlighter-rouge&quot;&gt;3240&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Se você não quiser ver os logs e/ou não interagir diretamente com a aplicação, basta utilizar a opção &lt;code class=&quot;highlighter-rouge&quot;&gt;-D&lt;/code&gt; que roda como &lt;em&gt;daemon&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;É possível visualizar os dispositivos locais disponíveis por meio do comando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;./usbip list -l
+ - busid 1-1.1.1 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;413c:8161&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Dell Computer Corp. : Integrated Keyboard &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;413c:8161&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+ - busid 1-1.1.2 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;413c:8162&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Dell Computer Corp. : Integrated Touchpad &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Synaptics] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;413c:8162&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+ - busid 2-1.8 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0c45:6481&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   Microdia : unknown product &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0c45:6481&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;A partir dessa listagem é possível disponibilizar algum dispositivo para conexão, basta executar o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;bind&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo ./usbip &lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt; -b 1-1.1.2 &lt;span class=&quot;c&quot;&gt;#1-1.1.2 é o ID do dispositivo listado anteriormente&lt;/span&gt;
+usbip: info: &lt;span class=&quot;nb&quot;&gt;bind &lt;/span&gt;device on busid 1-1.1.2: &lt;span class=&quot;nb&quot;&gt;complete&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;client&quot;&gt;Client&lt;/h3&gt;
+
+&lt;p&gt;Agora em outra máquina, é possível conectar-se ao &lt;em&gt;server&lt;/em&gt; e conversar com os dispositivos que estão disponíveis. Para isso, é preciso saber o endereço IP da máquina que está rodando o &lt;em&gt;server&lt;/em&gt;, nos exemplos abaixo eu assumirei que esse IP é &lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.0.17&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Além de ter também a aplicação usbip instalada nessa máquina, os seguintes módulos precisam ser ativados:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo modprobe usbip_core
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo modprobe vhci-hcd&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Para listar os dispositivos disponíveis do &lt;em&gt;server&lt;/em&gt; (anteriormente habilitados pelo &lt;code class=&quot;highlighter-rouge&quot;&gt;bind&lt;/code&gt;):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;./usbip list -r 192.168.0.17
+Exportable USB devices
+&lt;span class=&quot;o&quot;&gt;======================&lt;/span&gt;
+ - 192.168.0.17
+    1-1.1.2: Dell Computer Corp. : Integrated Touchpad &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Synaptics] &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;413c:8162&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+           : /sys/devices/pci0000:00/0000:00:1a.0/usb1/1-1/1-1.1/1-1.1.2
+           : &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Defined at Interface level&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;00/00/00&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Basta então, eu me conectar ao dispositivo que eu desejar através do seu ID:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo ./usbip attach -r 192.168.0.17 -b 1-1.1.2&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;E voilá! Você consegue então utilizar por meio da rede, um dispositivo USB que está em outra máquina!&lt;/p&gt;
+
+&lt;h3 id=&quot;consideraes-finais&quot;&gt;Considerações finais&lt;/h3&gt;
+
+&lt;p&gt;As possibilidades de utilização são ampliadas se você pensar que o seu USB &lt;em&gt;server&lt;/em&gt; pode ser RaspberryPi, por exemplo. Utilizo essa aplicação para alcançar alguns cenários de IoT, mas começar pelo mouse pode ser uma boa (no meu caso foi bem divertido).&lt;/p&gt;
+
+&lt;p&gt;A taxa de transferência de dados pode ser um problema dependendo do tipo de dispositivo USB que você deseja conectar via rede, como estou aplicando em cenários menores, isso me atende, mas quando se trata de disco externo ou mesmo pen-drive nota-se um atraso bem grande.&lt;/p&gt;
+
+&lt;p&gt;Utilize o &lt;code class=&quot;highlighter-rouge&quot;&gt;lsusb&lt;/code&gt; pra te ajudar quando tiver dúvida sobre os dispositivos conectados em sua máquina. Isso serve tanto pro &lt;em&gt;client&lt;/em&gt; quanto pro &lt;em&gt;server&lt;/em&gt;, pode ser uma boa baliza para seus experimentos e testes.&lt;/p&gt;
+
+&lt;p&gt;A maior parte dos comandos precisa ser executado com permissão de usuário &lt;code class=&quot;highlighter-rouge&quot;&gt;root&lt;/code&gt;, isso acontece porque é preciso manipular dispositivos internamente, o que pede algum grau de permissão além do usuário simples. Mas fique tranquilo, não há código malicioso nessa aplicação, ela é canônica e foi avaliada por uma equipe qualificada.&lt;/p&gt;
+
+&lt;p&gt;Para desconectar os dispositivos utilize os comandos &lt;code class=&quot;highlighter-rouge&quot;&gt;detach&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;unbind&lt;/code&gt; no &lt;em&gt;client&lt;/em&gt; e &lt;em&gt;server&lt;/em&gt; respectivamente. O comando help pode te ajudar bastante nisso ;).&lt;/p&gt;
+
+&lt;p&gt;Não há autenticação para acessar os dispositivos, como você pode ter observado. Portanto, seja cuidadoso ao compartilhar os &lt;em&gt;devices&lt;/em&gt;, garantir que somente as pessoas devidas tem acesso a essa rede é um bom caminho.&lt;/p&gt;
+
+&lt;p&gt;Não há necessidade alguma do &lt;em&gt;server&lt;/em&gt; ter os drivers de utilização do &lt;em&gt;device&lt;/em&gt;, apenas o cliente. O que de certa forma é incrível, pois no final a rede acaba sendo um mero condutor do sinal!&lt;/p&gt;
+
+&lt;p&gt;Aproveite, há muitas possibilidades para serem exploradas :)&lt;/p&gt;
+
+&lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
+</description>
+        <pubDate>Sat, 13 May 2017 00:00:00 -0300</pubDate>
+        <link>http://gcruz.com.br/blog/conexoes-remotas-usbip/</link>
+        <guid isPermaLink="true">http://gcruz.com.br/blog/conexoes-remotas-usbip/</guid>
+        
+        
+      </item>
+      
     
       
       <item>
