@@ -10,15 +10,15 @@ Foi com essa necessidade que eu conheci o [usbip](http://usbip.sourceforge.net/)
 
 Acabei de descrever o processo como se ele fosse numa mão única, um *read-only*, mas não é verdade. O *client* também pode enviar os dados pro *server* pela mesma comunicação anteriormente estabelecida.
 
-Quem gerencia os devices que subirão, bem como a comunicação entre *clients* e *server* é o ilustríssimo usbip. E você não leu errado, *clients* no plural mesmo, é possível que um mesmo dispositivo seja compartilhado com diversos outras máquinas.
+Quem gerencia os devices que subirão, bem como a comunicação entre *clients* e *server* é o ilustríssimo usbip. E você não leu errado, *clients* no plural mesmo, é possível que um mesmo dispositivo seja compartilhado com diversas outras máquinas.
 
-O usbip, criado por **Takahiro Hirofuchi** com uma [publicação inicial](https://www.usenix.org/legacy/events/usenix05/tech/freenix/hirofuchi/hirofuchi_html/index.html) que explica os conceitos e a arquitetura da aplicação. Caso você queira entender melhor como as coisas funcionam debaixo do capô, eu sugiro que olhe também o [site original da aplicação](http://usbip.sourceforge.net/) e o [repositório](https://github.com/torvalds/linux/tree/master/tools/usb/usbip) que atualmente está no no *core tools* do Linux (obrigado L. Torvalds).
+O usbip foi criado por **Takahiro Hirofuchi** com uma [publicação inicial](https://www.usenix.org/legacy/events/usenix05/tech/freenix/hirofuchi/hirofuchi_html/index.html) que explica os conceitos e a arquitetura da aplicação. Caso você queira entender melhor como as coisas funcionam debaixo do capô, eu sugiro que olhe também o [site original da aplicação](http://usbip.sourceforge.net/) e o [repositório](https://github.com/torvalds/linux/tree/master/tools/usb/usbip) que atualmente está no *core tools* do Linux (obrigado L. Torvalds).
 
-O usbip foi concebido para integrar devices entre diferentes sistemas operacionais. Eu fiz alguns testes com Linux e Windows e verifiquei que funciona perfeitamente **apenas entre duas máquinas com Linux**. Eu segui as instruções, instalando e compilando os drivers pro Windows, mas aparentemente surgiu alguma incompatibilidade que não foi tratada. Eu gostaria de ter testando também no macOS antes dessa publicação, mas não foi possível, então sinta-se à vontade :).
+O usbip foi concebido para integrar devices entre diferentes sistemas operacionais. Fiz alguns testes com Linux e Windows e verifiquei que funciona perfeitamente **apenas entre duas máquinas com Linux**. Segui as instruções, instalando e compilando os drivers pro Windows, mas aparentemente surgiu alguma incompatibilidade que não foi tratada. Gostaria de ter testado também no macOS antes dessa publicação, mas não foi possível, então sinta-se à vontade :).
 
 ### Instalação
 
-Atualmente a versão estável do usbip é a 2.0. Para instalar, basta que você baixe o [código fonte](https://github.com/torvalds/linux/tree/master/tools/usb/usbip) e o compile, como eu utilizo a distribuição Ubuntu 16.04, instalei o pacote do *tools-generic* da seguinte forma:
+Atualmente a versão estável do usbip é a 2.0. Para instalar, basta que você baixe o [código fonte](https://github.com/torvalds/linux/tree/master/tools/usb/usbip) e o compile, como utilizo a distribuição Ubuntu 16.04, instalei o pacote do *tools-generic* da seguinte forma:
 
 {% highlight shell %}
 $ sudo apt-get install linux-tools-generic
@@ -48,7 +48,7 @@ usbipd: info: listening on 0.0.0.0:3240
 usbipd: info: listening on :::3240
 {% endhighlight %}
 
-A aplicação responde avisando onde estará disponível a comunicação com outro device, no caso, por padrão na porta `3240`.
+A aplicação responde avisando onde estará disponível a comunicação com outro device, no caso por padrão, na porta `3240`.
 
 Se você não quiser ver os logs e/ou não interagir diretamente com a aplicação, basta utilizar a opção `-D` que roda como *daemon*.
 
@@ -73,7 +73,7 @@ usbip: info: bind device on busid 1-1.1.2: complete
 
 ### Client
 
-Agora em outra máquina, é possível conectar-se ao *server* e conversar com os dispositivos que estão disponíveis. Para isso, é preciso saber o endereço IP da máquina que está rodando o *server*, nos exemplos abaixo eu assumirei que esse IP é `192.168.0.17`.
+Agora em outra máquina, é possível conectar-se ao *server* e conversar com os dispositivos que estão disponíveis. Para isso, é preciso saber o endereço IP da máquina que está rodando o *server*, nos exemplos abaixo assumirei que esse IP é `192.168.0.17`.
 
 Além de ter também a aplicação usbip instalada nessa máquina, os seguintes módulos precisam ser ativados:
 {% highlight shell %}
@@ -81,7 +81,7 @@ $ sudo modprobe usbip_core
 $ sudo modprobe vhci-hcd
 {% endhighlight %}
 
-Para listar os dispositivos disponíveis do *server* (anteriormente habilitados pelo `bind`):
+Para listar os dispositivos disponíveis do *server* (anteriormente habilitados pelo `bind`), execute:
 {% highlight shell %}
 $ ./usbip list -r 192.168.0.17
 Exportable USB devices
@@ -93,7 +93,7 @@ Exportable USB devices
 
 {% endhighlight %}
 
-Basta então, eu me conectar ao dispositivo que eu desejar através do seu ID:
+Basta então, se conectar ao dispositivo que desejar através do seu ID:
 {% highlight shell %}
 $ sudo ./usbip attach -r 192.168.0.17 -b 1-1.1.2
 {% endhighlight %}
@@ -110,11 +110,11 @@ Utilize o `lsusb` pra te ajudar quando tiver dúvida sobre os dispositivos conec
 
 A maior parte dos comandos precisa ser executado com permissão de usuário `root`, isso acontece porque é preciso manipular dispositivos internamente, o que pede algum grau de permissão além do usuário simples. Mas fique tranquilo, não há código malicioso nessa aplicação, ela é canônica e foi avaliada por uma equipe qualificada.
 
-Para desconectar os dispositivos utilize os comandos `detach` e `unbind` no *client* e *server* respectivamente. O comando help pode te ajudar bastante nisso ;).
+Para desconectar os dispositivos, utilize os comandos `detach` e `unbind` no *client* e *server* respectivamente. O comando `help` pode te ajudar bastante nisso ;).
 
 Não há autenticação para acessar os dispositivos, como você pode ter observado. Portanto, seja cuidadoso ao compartilhar os *devices*, garantir que somente as pessoas devidas tem acesso a essa rede é um bom caminho.
 
-Não há necessidade alguma do *server* ter os drivers de utilização do *device*, apenas o cliente. O que de certa forma é incrível, pois no final a rede acaba sendo um mero condutor do sinal!
+Não há necessidade alguma do *server* ter os drivers de utilização do *device*, apenas o *client*. O que de certa forma é incrível, pois no final a rede acaba sendo um mero condutor do sinal!
 
 Aproveite, há muitas possibilidades para serem exploradas :)
 

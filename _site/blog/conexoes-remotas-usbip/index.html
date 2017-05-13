@@ -79,15 +79,15 @@ ga('send', 'pageview');
 
 <p>Acabei de descrever o processo como se ele fosse numa mão única, um <em>read-only</em>, mas não é verdade. O <em>client</em> também pode enviar os dados pro <em>server</em> pela mesma comunicação anteriormente estabelecida.</p>
 
-<p>Quem gerencia os devices que subirão, bem como a comunicação entre <em>clients</em> e <em>server</em> é o ilustríssimo usbip. E você não leu errado, <em>clients</em> no plural mesmo, é possível que um mesmo dispositivo seja compartilhado com diversos outras máquinas.</p>
+<p>Quem gerencia os devices que subirão, bem como a comunicação entre <em>clients</em> e <em>server</em> é o ilustríssimo usbip. E você não leu errado, <em>clients</em> no plural mesmo, é possível que um mesmo dispositivo seja compartilhado com diversas outras máquinas.</p>
 
-<p>O usbip, criado por <strong>Takahiro Hirofuchi</strong> com uma <a href="https://www.usenix.org/legacy/events/usenix05/tech/freenix/hirofuchi/hirofuchi_html/index.html">publicação inicial</a> que explica os conceitos e a arquitetura da aplicação. Caso você queira entender melhor como as coisas funcionam debaixo do capô, eu sugiro que olhe também o <a href="http://usbip.sourceforge.net/">site original da aplicação</a> e o <a href="https://github.com/torvalds/linux/tree/master/tools/usb/usbip">repositório</a> que atualmente está no no <em>core tools</em> do Linux (obrigado L. Torvalds).</p>
+<p>O usbip foi criado por <strong>Takahiro Hirofuchi</strong> com uma <a href="https://www.usenix.org/legacy/events/usenix05/tech/freenix/hirofuchi/hirofuchi_html/index.html">publicação inicial</a> que explica os conceitos e a arquitetura da aplicação. Caso você queira entender melhor como as coisas funcionam debaixo do capô, eu sugiro que olhe também o <a href="http://usbip.sourceforge.net/">site original da aplicação</a> e o <a href="https://github.com/torvalds/linux/tree/master/tools/usb/usbip">repositório</a> que atualmente está no <em>core tools</em> do Linux (obrigado L. Torvalds).</p>
 
-<p>O usbip foi concebido para integrar devices entre diferentes sistemas operacionais. Eu fiz alguns testes com Linux e Windows e verifiquei que funciona perfeitamente <strong>apenas entre duas máquinas com Linux</strong>. Eu segui as instruções, instalando e compilando os drivers pro Windows, mas aparentemente surgiu alguma incompatibilidade que não foi tratada. Eu gostaria de ter testando também no macOS antes dessa publicação, mas não foi possível, então sinta-se à vontade :).</p>
+<p>O usbip foi concebido para integrar devices entre diferentes sistemas operacionais. Fiz alguns testes com Linux e Windows e verifiquei que funciona perfeitamente <strong>apenas entre duas máquinas com Linux</strong>. Segui as instruções, instalando e compilando os drivers pro Windows, mas aparentemente surgiu alguma incompatibilidade que não foi tratada. Gostaria de ter testado também no macOS antes dessa publicação, mas não foi possível, então sinta-se à vontade :).</p>
 
 <h3 id="instalao">Instalação</h3>
 
-<p>Atualmente a versão estável do usbip é a 2.0. Para instalar, basta que você baixe o <a href="https://github.com/torvalds/linux/tree/master/tools/usb/usbip">código fonte</a> e o compile, como eu utilizo a distribuição Ubuntu 16.04, instalei o pacote do <em>tools-generic</em> da seguinte forma:</p>
+<p>Atualmente a versão estável do usbip é a 2.0. Para instalar, basta que você baixe o <a href="https://github.com/torvalds/linux/tree/master/tools/usb/usbip">código fonte</a> e o compile, como utilizo a distribuição Ubuntu 16.04, instalei o pacote do <em>tools-generic</em> da seguinte forma:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">$ </span>sudo apt-get install linux-tools-generic</code></pre></figure>
 
@@ -113,7 +113,7 @@ usbipd: info: starting usbipd <span class="o">(</span>usbip-utils 2.0<span class
 usbipd: info: listening on 0.0.0.0:3240
 usbipd: info: listening on :::3240</code></pre></figure>
 
-<p>A aplicação responde avisando onde estará disponível a comunicação com outro device, no caso, por padrão na porta <code class="highlighter-rouge">3240</code>.</p>
+<p>A aplicação responde avisando onde estará disponível a comunicação com outro device, no caso por padrão, na porta <code class="highlighter-rouge">3240</code>.</p>
 
 <p>Se você não quiser ver os logs e/ou não interagir diretamente com a aplicação, basta utilizar a opção <code class="highlighter-rouge">-D</code> que roda como <em>daemon</em>.</p>
 
@@ -136,14 +136,14 @@ usbip: info: <span class="nb">bind </span>device on busid 1-1.1.2: <span class="
 
 <h3 id="client">Client</h3>
 
-<p>Agora em outra máquina, é possível conectar-se ao <em>server</em> e conversar com os dispositivos que estão disponíveis. Para isso, é preciso saber o endereço IP da máquina que está rodando o <em>server</em>, nos exemplos abaixo eu assumirei que esse IP é <code class="highlighter-rouge">192.168.0.17</code>.</p>
+<p>Agora em outra máquina, é possível conectar-se ao <em>server</em> e conversar com os dispositivos que estão disponíveis. Para isso, é preciso saber o endereço IP da máquina que está rodando o <em>server</em>, nos exemplos abaixo assumirei que esse IP é <code class="highlighter-rouge">192.168.0.17</code>.</p>
 
 <p>Além de ter também a aplicação usbip instalada nessa máquina, os seguintes módulos precisam ser ativados:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">$ </span>sudo modprobe usbip_core
 <span class="gp">$ </span>sudo modprobe vhci-hcd</code></pre></figure>
 
-<p>Para listar os dispositivos disponíveis do <em>server</em> (anteriormente habilitados pelo <code class="highlighter-rouge">bind</code>):</p>
+<p>Para listar os dispositivos disponíveis do <em>server</em> (anteriormente habilitados pelo <code class="highlighter-rouge">bind</code>), execute:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">$ </span>./usbip list -r 192.168.0.17
 Exportable USB devices
@@ -153,7 +153,7 @@ Exportable USB devices
            : /sys/devices/pci0000:00/0000:00:1a.0/usb1/1-1/1-1.1/1-1.1.2
            : <span class="o">(</span>Defined at Interface level<span class="o">)</span> <span class="o">(</span>00/00/00<span class="o">)</span></code></pre></figure>
 
-<p>Basta então, eu me conectar ao dispositivo que eu desejar através do seu ID:</p>
+<p>Basta então, se conectar ao dispositivo que desejar através do seu ID:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="gp">$ </span>sudo ./usbip attach -r 192.168.0.17 -b 1-1.1.2</code></pre></figure>
 
@@ -169,11 +169,11 @@ Exportable USB devices
 
 <p>A maior parte dos comandos precisa ser executado com permissão de usuário <code class="highlighter-rouge">root</code>, isso acontece porque é preciso manipular dispositivos internamente, o que pede algum grau de permissão além do usuário simples. Mas fique tranquilo, não há código malicioso nessa aplicação, ela é canônica e foi avaliada por uma equipe qualificada.</p>
 
-<p>Para desconectar os dispositivos utilize os comandos <code class="highlighter-rouge">detach</code> e <code class="highlighter-rouge">unbind</code> no <em>client</em> e <em>server</em> respectivamente. O comando help pode te ajudar bastante nisso ;).</p>
+<p>Para desconectar os dispositivos, utilize os comandos <code class="highlighter-rouge">detach</code> e <code class="highlighter-rouge">unbind</code> no <em>client</em> e <em>server</em> respectivamente. O comando <code class="highlighter-rouge">help</code> pode te ajudar bastante nisso ;).</p>
 
 <p>Não há autenticação para acessar os dispositivos, como você pode ter observado. Portanto, seja cuidadoso ao compartilhar os <em>devices</em>, garantir que somente as pessoas devidas tem acesso a essa rede é um bom caminho.</p>
 
-<p>Não há necessidade alguma do <em>server</em> ter os drivers de utilização do <em>device</em>, apenas o cliente. O que de certa forma é incrível, pois no final a rede acaba sendo um mero condutor do sinal!</p>
+<p>Não há necessidade alguma do <em>server</em> ter os drivers de utilização do <em>device</em>, apenas o <em>client</em>. O que de certa forma é incrível, pois no final a rede acaba sendo um mero condutor do sinal!</p>
 
 <p>Aproveite, há muitas possibilidades para serem exploradas :)</p>
 

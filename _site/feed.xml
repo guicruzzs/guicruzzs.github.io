@@ -5,8 +5,8 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 13 May 2017 17:07:51 -0300</pubDate>
-    <lastBuildDate>Sat, 13 May 2017 17:07:51 -0300</lastBuildDate>
+    <pubDate>Sat, 13 May 2017 17:29:03 -0300</pubDate>
+    <lastBuildDate>Sat, 13 May 2017 17:29:03 -0300</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       
@@ -18,15 +18,15 @@
 
 &lt;p&gt;Acabei de descrever o processo como se ele fosse numa mão única, um &lt;em&gt;read-only&lt;/em&gt;, mas não é verdade. O &lt;em&gt;client&lt;/em&gt; também pode enviar os dados pro &lt;em&gt;server&lt;/em&gt; pela mesma comunicação anteriormente estabelecida.&lt;/p&gt;
 
-&lt;p&gt;Quem gerencia os devices que subirão, bem como a comunicação entre &lt;em&gt;clients&lt;/em&gt; e &lt;em&gt;server&lt;/em&gt; é o ilustríssimo usbip. E você não leu errado, &lt;em&gt;clients&lt;/em&gt; no plural mesmo, é possível que um mesmo dispositivo seja compartilhado com diversos outras máquinas.&lt;/p&gt;
+&lt;p&gt;Quem gerencia os devices que subirão, bem como a comunicação entre &lt;em&gt;clients&lt;/em&gt; e &lt;em&gt;server&lt;/em&gt; é o ilustríssimo usbip. E você não leu errado, &lt;em&gt;clients&lt;/em&gt; no plural mesmo, é possível que um mesmo dispositivo seja compartilhado com diversas outras máquinas.&lt;/p&gt;
 
-&lt;p&gt;O usbip, criado por &lt;strong&gt;Takahiro Hirofuchi&lt;/strong&gt; com uma &lt;a href=&quot;https://www.usenix.org/legacy/events/usenix05/tech/freenix/hirofuchi/hirofuchi_html/index.html&quot;&gt;publicação inicial&lt;/a&gt; que explica os conceitos e a arquitetura da aplicação. Caso você queira entender melhor como as coisas funcionam debaixo do capô, eu sugiro que olhe também o &lt;a href=&quot;http://usbip.sourceforge.net/&quot;&gt;site original da aplicação&lt;/a&gt; e o &lt;a href=&quot;https://github.com/torvalds/linux/tree/master/tools/usb/usbip&quot;&gt;repositório&lt;/a&gt; que atualmente está no no &lt;em&gt;core tools&lt;/em&gt; do Linux (obrigado L. Torvalds).&lt;/p&gt;
+&lt;p&gt;O usbip foi criado por &lt;strong&gt;Takahiro Hirofuchi&lt;/strong&gt; com uma &lt;a href=&quot;https://www.usenix.org/legacy/events/usenix05/tech/freenix/hirofuchi/hirofuchi_html/index.html&quot;&gt;publicação inicial&lt;/a&gt; que explica os conceitos e a arquitetura da aplicação. Caso você queira entender melhor como as coisas funcionam debaixo do capô, eu sugiro que olhe também o &lt;a href=&quot;http://usbip.sourceforge.net/&quot;&gt;site original da aplicação&lt;/a&gt; e o &lt;a href=&quot;https://github.com/torvalds/linux/tree/master/tools/usb/usbip&quot;&gt;repositório&lt;/a&gt; que atualmente está no &lt;em&gt;core tools&lt;/em&gt; do Linux (obrigado L. Torvalds).&lt;/p&gt;
 
-&lt;p&gt;O usbip foi concebido para integrar devices entre diferentes sistemas operacionais. Eu fiz alguns testes com Linux e Windows e verifiquei que funciona perfeitamente &lt;strong&gt;apenas entre duas máquinas com Linux&lt;/strong&gt;. Eu segui as instruções, instalando e compilando os drivers pro Windows, mas aparentemente surgiu alguma incompatibilidade que não foi tratada. Eu gostaria de ter testando também no macOS antes dessa publicação, mas não foi possível, então sinta-se à vontade :).&lt;/p&gt;
+&lt;p&gt;O usbip foi concebido para integrar devices entre diferentes sistemas operacionais. Fiz alguns testes com Linux e Windows e verifiquei que funciona perfeitamente &lt;strong&gt;apenas entre duas máquinas com Linux&lt;/strong&gt;. Segui as instruções, instalando e compilando os drivers pro Windows, mas aparentemente surgiu alguma incompatibilidade que não foi tratada. Gostaria de ter testado também no macOS antes dessa publicação, mas não foi possível, então sinta-se à vontade :).&lt;/p&gt;
 
 &lt;h3 id=&quot;instalao&quot;&gt;Instalação&lt;/h3&gt;
 
-&lt;p&gt;Atualmente a versão estável do usbip é a 2.0. Para instalar, basta que você baixe o &lt;a href=&quot;https://github.com/torvalds/linux/tree/master/tools/usb/usbip&quot;&gt;código fonte&lt;/a&gt; e o compile, como eu utilizo a distribuição Ubuntu 16.04, instalei o pacote do &lt;em&gt;tools-generic&lt;/em&gt; da seguinte forma:&lt;/p&gt;
+&lt;p&gt;Atualmente a versão estável do usbip é a 2.0. Para instalar, basta que você baixe o &lt;a href=&quot;https://github.com/torvalds/linux/tree/master/tools/usb/usbip&quot;&gt;código fonte&lt;/a&gt; e o compile, como utilizo a distribuição Ubuntu 16.04, instalei o pacote do &lt;em&gt;tools-generic&lt;/em&gt; da seguinte forma:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo apt-get install linux-tools-generic&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -52,7 +52,7 @@ usbipd: info: starting usbipd &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;usbi
 usbipd: info: listening on 0.0.0.0:3240
 usbipd: info: listening on :::3240&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;A aplicação responde avisando onde estará disponível a comunicação com outro device, no caso, por padrão na porta &lt;code class=&quot;highlighter-rouge&quot;&gt;3240&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A aplicação responde avisando onde estará disponível a comunicação com outro device, no caso por padrão, na porta &lt;code class=&quot;highlighter-rouge&quot;&gt;3240&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Se você não quiser ver os logs e/ou não interagir diretamente com a aplicação, basta utilizar a opção &lt;code class=&quot;highlighter-rouge&quot;&gt;-D&lt;/code&gt; que roda como &lt;em&gt;daemon&lt;/em&gt;.&lt;/p&gt;
 
@@ -75,14 +75,14 @@ usbip: info: &lt;span class=&quot;nb&quot;&gt;bind &lt;/span&gt;device on busid 
 
 &lt;h3 id=&quot;client&quot;&gt;Client&lt;/h3&gt;
 
-&lt;p&gt;Agora em outra máquina, é possível conectar-se ao &lt;em&gt;server&lt;/em&gt; e conversar com os dispositivos que estão disponíveis. Para isso, é preciso saber o endereço IP da máquina que está rodando o &lt;em&gt;server&lt;/em&gt;, nos exemplos abaixo eu assumirei que esse IP é &lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.0.17&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Agora em outra máquina, é possível conectar-se ao &lt;em&gt;server&lt;/em&gt; e conversar com os dispositivos que estão disponíveis. Para isso, é preciso saber o endereço IP da máquina que está rodando o &lt;em&gt;server&lt;/em&gt;, nos exemplos abaixo assumirei que esse IP é &lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.0.17&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Além de ter também a aplicação usbip instalada nessa máquina, os seguintes módulos precisam ser ativados:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo modprobe usbip_core
 &lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo modprobe vhci-hcd&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Para listar os dispositivos disponíveis do &lt;em&gt;server&lt;/em&gt; (anteriormente habilitados pelo &lt;code class=&quot;highlighter-rouge&quot;&gt;bind&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;Para listar os dispositivos disponíveis do &lt;em&gt;server&lt;/em&gt; (anteriormente habilitados pelo &lt;code class=&quot;highlighter-rouge&quot;&gt;bind&lt;/code&gt;), execute:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;./usbip list -r 192.168.0.17
 Exportable USB devices
@@ -92,7 +92,7 @@ Exportable USB devices
            : /sys/devices/pci0000:00/0000:00:1a.0/usb1/1-1/1-1.1/1-1.1.2
            : &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Defined at Interface level&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;00/00/00&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Basta então, eu me conectar ao dispositivo que eu desejar através do seu ID:&lt;/p&gt;
+&lt;p&gt;Basta então, se conectar ao dispositivo que desejar através do seu ID:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo ./usbip attach -r 192.168.0.17 -b 1-1.1.2&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -108,11 +108,11 @@ Exportable USB devices
 
 &lt;p&gt;A maior parte dos comandos precisa ser executado com permissão de usuário &lt;code class=&quot;highlighter-rouge&quot;&gt;root&lt;/code&gt;, isso acontece porque é preciso manipular dispositivos internamente, o que pede algum grau de permissão além do usuário simples. Mas fique tranquilo, não há código malicioso nessa aplicação, ela é canônica e foi avaliada por uma equipe qualificada.&lt;/p&gt;
 
-&lt;p&gt;Para desconectar os dispositivos utilize os comandos &lt;code class=&quot;highlighter-rouge&quot;&gt;detach&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;unbind&lt;/code&gt; no &lt;em&gt;client&lt;/em&gt; e &lt;em&gt;server&lt;/em&gt; respectivamente. O comando help pode te ajudar bastante nisso ;).&lt;/p&gt;
+&lt;p&gt;Para desconectar os dispositivos, utilize os comandos &lt;code class=&quot;highlighter-rouge&quot;&gt;detach&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;unbind&lt;/code&gt; no &lt;em&gt;client&lt;/em&gt; e &lt;em&gt;server&lt;/em&gt; respectivamente. O comando &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; pode te ajudar bastante nisso ;).&lt;/p&gt;
 
 &lt;p&gt;Não há autenticação para acessar os dispositivos, como você pode ter observado. Portanto, seja cuidadoso ao compartilhar os &lt;em&gt;devices&lt;/em&gt;, garantir que somente as pessoas devidas tem acesso a essa rede é um bom caminho.&lt;/p&gt;
 
-&lt;p&gt;Não há necessidade alguma do &lt;em&gt;server&lt;/em&gt; ter os drivers de utilização do &lt;em&gt;device&lt;/em&gt;, apenas o cliente. O que de certa forma é incrível, pois no final a rede acaba sendo um mero condutor do sinal!&lt;/p&gt;
+&lt;p&gt;Não há necessidade alguma do &lt;em&gt;server&lt;/em&gt; ter os drivers de utilização do &lt;em&gt;device&lt;/em&gt;, apenas o &lt;em&gt;client&lt;/em&gt;. O que de certa forma é incrível, pois no final a rede acaba sendo um mero condutor do sinal!&lt;/p&gt;
 
 &lt;p&gt;Aproveite, há muitas possibilidades para serem exploradas :)&lt;/p&gt;
 
