@@ -6,7 +6,7 @@ date:   2017-05-13
 
 <p class="intro"><span class="dropcap">I</span>magine utilizar a rede para compartilhar uma conexão de um dispositivo USB, seja ele uma câmera, um HD externo, mouse, impressora, ou qualquer outro dispositivo. Há uma ferramenta no repositório Linux que resolve isso.</p>
 
-Foi com essa necessidade que eu conheci o [usbip](http://usbip.sourceforge.net/). Ele foi criado para abstrair uma conexão USB em um device genérico (*server*), por meio do VHCI, e a partir daí transmitir os dados pra outro computador via rede. Isso permite que este receptor (*client*) dos dados USB possa montar seu próprio device e injetar a comunicação que ele recebe via rede.
+Foi com essa necessidade que eu conheci o [usbip](http://usbip.sourceforge.net/). Ele foi criado para transmitir pela rede portas USB (*USB over IP*). O usbip abstrai uma conexão USB em um device genérico (*server*), por meio do VHCI, e a partir daí transmitir os dados pra outro computador via rede. Isso permite que este receptor (*client*) dos dados USB possa montar seu próprio device e injetar a comunicação que ele recebe via rede.
 
 Acabei de descrever o processo como se ele fosse numa mão única, um *read-only*, mas não é verdade. O *client* também pode enviar os dados pro *server* pela mesma comunicação anteriormente estabelecida.
 

@@ -5,8 +5,8 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 13 May 2017 17:29:03 -0300</pubDate>
-    <lastBuildDate>Sat, 13 May 2017 17:29:03 -0300</lastBuildDate>
+    <pubDate>Sat, 13 May 2017 22:13:54 -0300</pubDate>
+    <lastBuildDate>Sat, 13 May 2017 22:13:54 -0300</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       
@@ -14,7 +14,7 @@
         <title>Conexões remotas de USB via usbip</title>
         <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;I&lt;/span&gt;magine utilizar a rede para compartilhar uma conexão de um dispositivo USB, seja ele uma câmera, um HD externo, mouse, impressora, ou qualquer outro dispositivo. Há uma ferramenta no repositório Linux que resolve isso.&lt;/p&gt;
 
-&lt;p&gt;Foi com essa necessidade que eu conheci o &lt;a href=&quot;http://usbip.sourceforge.net/&quot;&gt;usbip&lt;/a&gt;. Ele foi criado para abstrair uma conexão USB em um device genérico (&lt;em&gt;server&lt;/em&gt;), por meio do VHCI, e a partir daí transmitir os dados pra outro computador via rede. Isso permite que este receptor (&lt;em&gt;client&lt;/em&gt;) dos dados USB possa montar seu próprio device e injetar a comunicação que ele recebe via rede.&lt;/p&gt;
+&lt;p&gt;Foi com essa necessidade que eu conheci o &lt;a href=&quot;http://usbip.sourceforge.net/&quot;&gt;usbip&lt;/a&gt;. Ele foi criado para transmitir pela rede portas USB (&lt;em&gt;USB over IP&lt;/em&gt;). O usbip abstrai uma conexão USB em um device genérico (&lt;em&gt;server&lt;/em&gt;), por meio do VHCI, e a partir daí transmitir os dados pra outro computador via rede. Isso permite que este receptor (&lt;em&gt;client&lt;/em&gt;) dos dados USB possa montar seu próprio device e injetar a comunicação que ele recebe via rede.&lt;/p&gt;
 
 &lt;p&gt;Acabei de descrever o processo como se ele fosse numa mão única, um &lt;em&gt;read-only&lt;/em&gt;, mas não é verdade. O &lt;em&gt;client&lt;/em&gt; também pode enviar os dados pro &lt;em&gt;server&lt;/em&gt; pela mesma comunicação anteriormente estabelecida.&lt;/p&gt;
 

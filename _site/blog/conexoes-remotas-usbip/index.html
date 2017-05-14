@@ -71,11 +71,11 @@ ga('send', 'pageview');
          <div class="post">
   
   <h1 class="postTitle">Conexões remotas de USB via usbip</h1>
-  <p class="meta">May 13, 2017 | <span class="time">5</span> Minute Read</p>
+  <p class="meta">May 13, 2017 | <span class="time">6</span> Minute Read</p>
   
   <p class="intro"><span class="dropcap">I</span>magine utilizar a rede para compartilhar uma conexão de um dispositivo USB, seja ele uma câmera, um HD externo, mouse, impressora, ou qualquer outro dispositivo. Há uma ferramenta no repositório Linux que resolve isso.</p>
 
-<p>Foi com essa necessidade que eu conheci o <a href="http://usbip.sourceforge.net/">usbip</a>. Ele foi criado para abstrair uma conexão USB em um device genérico (<em>server</em>), por meio do VHCI, e a partir daí transmitir os dados pra outro computador via rede. Isso permite que este receptor (<em>client</em>) dos dados USB possa montar seu próprio device e injetar a comunicação que ele recebe via rede.</p>
+<p>Foi com essa necessidade que eu conheci o <a href="http://usbip.sourceforge.net/">usbip</a>. Ele foi criado para transmitir pela rede portas USB (<em>USB over IP</em>). O usbip abstrai uma conexão USB em um device genérico (<em>server</em>), por meio do VHCI, e a partir daí transmitir os dados pra outro computador via rede. Isso permite que este receptor (<em>client</em>) dos dados USB possa montar seu próprio device e injetar a comunicação que ele recebe via rede.</p>
 
 <p>Acabei de descrever o processo como se ele fosse numa mão única, um <em>read-only</em>, mas não é verdade. O <em>client</em> também pode enviar os dados pro <em>server</em> pela mesma comunicação anteriormente estabelecida.</p>
 
