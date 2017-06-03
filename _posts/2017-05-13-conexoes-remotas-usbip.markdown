@@ -98,7 +98,7 @@ Basta então, se conectar ao dispositivo que desejar através do seu ID:
 $ sudo ./usbip attach -r 192.168.0.17 -b 1-1.1.2
 {% endhighlight %}
 
-E voilá! Você consegue então utilizar por meio da rede, um dispositivo USB que está em outra máquina!
+E voilà! Você consegue então utilizar por meio da rede, um dispositivo USB que está em outra máquina!
 
 ### Considerações finais
 
