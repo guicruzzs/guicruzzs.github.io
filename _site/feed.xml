@@ -5,8 +5,8 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 04 Jun 2017 23:53:00 -0300</pubDate>
-    <lastBuildDate>Sun, 04 Jun 2017 23:53:00 -0300</lastBuildDate>
+    <pubDate>Mon, 05 Jun 2017 17:59:05 -0300</pubDate>
+    <lastBuildDate>Mon, 05 Jun 2017 17:59:05 -0300</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       
@@ -25,7 +25,7 @@
 
 &lt;p&gt;Na imagem acima temos um exemplo de série temporal. Neste gráfico observamos os usuários online na plataforma de games &lt;a href=&quot;http://store.steampowered.com/&quot;&gt;Steam&lt;/a&gt;: o eixo &lt;strong&gt;y&lt;/strong&gt; mostra a quantidade de usuários ativos baseado no eixo &lt;strong&gt;x&lt;/strong&gt; que segue uma linha cronológica.&lt;/p&gt;
 
-&lt;p&gt;Um critério que vale a atenção é a frequência dos dados. Alguns autores determinam que o período de intervalo entre as observações deve ser constante, mas isso não descaracteriza a série temporal, não completamente. Dados espaçados por intervalos diferentes pode acarretar em alguns problemas do seu modelo final: como representar um gráfico de despesas mensais se faltar um mês? Ou ainda se acumular o valor no mês seguinte? Essa variação pode gerar problemas na hora de interpretar os dados coletados se não for tratado devidamente.&lt;/p&gt;
+&lt;p&gt;Um critério que vale a atenção é a frequência dos dados. Alguns autores determinam que o período de intervalo entre as observações deve ser constante, mas isso não descaracteriza a série temporal, não completamente. Dados espaçados por intervalos diferentes podem acarretar em alguns problemas do seu modelo final: como representar um gráfico de despesas mensais se faltar um mês? Ou ainda se acumular o valor no mês seguinte? Essa variação pode gerar problemas na hora de interpretar os dados coletados se não for tratado devidamente.&lt;/p&gt;
 
 &lt;p&gt;Uma série é composta por 4 tipos te variações: Tendência, Ciclo, Sazonalidade e Variações Irregulares. De toda série é possível extrair essas características, obviamente que cada série expressará de forma distintas cada tipo de variação, algumas dessas características podem ser até nulas (ou neutras).&lt;/p&gt;
 
@@ -42,11 +42,11 @@
 &lt;p&gt;Calma que todo mundo está nervoso. Vamos ver mais informações sobre essa estrutura de banco na sequência.&lt;/p&gt;
 
 &lt;h5 id=&quot;fields&quot;&gt;Fields&lt;/h5&gt;
-&lt;p&gt;&lt;em&gt;Fields&lt;/em&gt; representam colunas que você nomeia e armazena dados importantes para a sua representação dos dados, funciona no modelo chave-valor. A &lt;em&gt;Field Key&lt;/em&gt; é uma string e representa o nome da coluna e então, o &lt;em&gt;Field Value&lt;/em&gt; é o dado armazenado no campo,&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Fields&lt;/em&gt; representam colunas que você nomeia e armazena dados importantes para a representação da série, funciona no modelo chave-valor. A &lt;em&gt;Field Key&lt;/em&gt; é uma string e representa o nome da coluna, consequentemente o &lt;em&gt;Field Value&lt;/em&gt; é o valor armazenado.&lt;/p&gt;
 
-&lt;p&gt;Não se pode ter um registro sem pelo menos um &lt;strong&gt;Field&lt;/strong&gt;, é obrigatório, trata-se de uma informação básica. O field você pode gravar informações de todos os tipos, mas o importante é que ela represente dados que você exibiria num gráfico, cujo único papel é representar uma medida em um instante.&lt;/p&gt;
+&lt;p&gt;Não se pode ter um registro sem pelo menos um &lt;em&gt;Field&lt;/em&gt;, é obrigatório, trata-se de uma informação básica. No &lt;em&gt;Field&lt;/em&gt; você pode gravar dados de todos os tipos, mas o importante é que ele seja um dado que você exibiria num gráfico, cujo único papel é representar uma medição em um instante.&lt;/p&gt;
 
-&lt;p&gt;Lembre-se que os &lt;em&gt;Fields&lt;/em&gt; não são indexados, isto é, a busca por um &lt;em&gt;Field&lt;/em&gt; no banco implica na leitura de todos os valores e após isso a sua filtragem: resultando em consultas mais lentas. Ou seja, em bom português, &lt;em&gt;Fields&lt;/em&gt; não devem ser dados que precisam de critérios de busca (indexação).&lt;/p&gt;
+&lt;p&gt;Lembre-se que os &lt;em&gt;Fields&lt;/em&gt; não são indexados, isto é, a busca por um &lt;em&gt;Field&lt;/em&gt; no banco implica na leitura de todos os valores e, após isso, a sua filtragem: resultando em consultas mais lentas. Ou seja, em bom português, &lt;em&gt;Fields&lt;/em&gt; não devem ser dados que precisam de critérios de busca (indexação).&lt;/p&gt;
 
 &lt;h5 id=&quot;tags&quot;&gt;Tags&lt;/h5&gt;
 &lt;p&gt;&lt;em&gt;Tags&lt;/em&gt; representam colunas que você nomeia e armazena dados também, no mesmo formato que os &lt;em&gt;Fields&lt;/em&gt;: em chave-valor. A característica do dado armazenado deve ser diferente, esse dado é uma espécie de metadado, ele será o alvo das suas consultas no banco: é esse campo aqui que estará no seu &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; na hora de realizar a sua consulta.&lt;/p&gt;

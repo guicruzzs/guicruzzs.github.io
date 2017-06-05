@@ -34,7 +34,7 @@ Dois pontos iniciais foram importantes para que eu entendesse esse banco de dado
 Calma que todo mundo está nervoso. Vamos ver mais informações sobre essa estrutura de banco na sequência.
 
 ##### Fields
-*Fields* representam colunas que você nomeia e armazena dados importantes para a sua representação dos dados, funciona no modelo chave-valor. A *Field Key* é uma string e representa o nome da coluna e então, o *Field Value* é o dado armazenado no campo,
+*Fields* representam colunas que você nomeia e armazena dados importantes para a representação da série, funciona no modelo chave-valor. A *Field Key* é uma string e representa o nome da coluna, consequentemente o *Field Value* é o valor armazenado.
 
 Não se pode ter um registro sem pelo menos um *Field*, é obrigatório, trata-se de uma informação básica. No *Field* você pode gravar dados de todos os tipos, mas o importante é que ele seja um dado que você exibiria num gráfico, cujo único papel é representar uma medição em um instante.
 
