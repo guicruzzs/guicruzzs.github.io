@@ -17,7 +17,7 @@ Em geral, séries temporais se tornam gráficos que representam um determinado p
 
 Na imagem acima temos um exemplo de série temporal. Neste gráfico observamos os usuários online na plataforma de games [Steam](http://store.steampowered.com/): o eixo **y** mostra a quantidade de usuários ativos baseado no eixo **x** que segue uma linha cronológica.
 
-Um critério que vale a atenção é a frequência dos dados. Alguns autores determinam que o período de intervalo entre as observações deve ser constante, mas isso não descaracteriza a série temporal, não completamente. Dados espaçados por intervalos diferentes pode acarretar em alguns problemas do seu modelo final: como representar um gráfico de despesas mensais se faltar um mês? Ou ainda se acumular o valor no mês seguinte? Essa variação pode gerar problemas na hora de interpretar os dados coletados se não for tratado devidamente.
+Um critério que vale a atenção é a frequência dos dados. Alguns autores determinam que o período de intervalo entre as observações deve ser constante, mas isso não descaracteriza a série temporal, não completamente. Dados espaçados por intervalos diferentes podem acarretar em alguns problemas do seu modelo final: como representar um gráfico de despesas mensais se faltar um mês? Ou ainda se acumular o valor no mês seguinte? Essa variação pode gerar problemas na hora de interpretar os dados coletados se não for tratado devidamente.
 
 Uma série é composta por 4 tipos te variações: Tendência, Ciclo, Sazonalidade e Variações Irregulares. De toda série é possível extrair essas características, obviamente que cada série expressará de forma distintas cada tipo de variação, algumas dessas características podem ser até nulas (ou neutras).
 
@@ -36,9 +36,9 @@ Calma que todo mundo está nervoso. Vamos ver mais informações sobre essa estr
 ##### Fields
 *Fields* representam colunas que você nomeia e armazena dados importantes para a sua representação dos dados, funciona no modelo chave-valor. A *Field Key* é uma string e representa o nome da coluna e então, o *Field Value* é o dado armazenado no campo,
 
-Não se pode ter um registro sem pelo menos um **Field**, é obrigatório, trata-se de uma informação básica. O field você pode gravar informações de todos os tipos, mas o importante é que ela represente dados que você exibiria num gráfico, cujo único papel é representar uma medida em um instante.
+Não se pode ter um registro sem pelo menos um *Field*, é obrigatório, trata-se de uma informação básica. No *Field* você pode gravar dados de todos os tipos, mas o importante é que ele seja um dado que você exibiria num gráfico, cujo único papel é representar uma medição em um instante.
 
-Lembre-se que os *Fields* não são indexados, isto é, a busca por um *Field* no banco implica na leitura de todos os valores e após isso a sua filtragem: resultando em consultas mais lentas. Ou seja, em bom português, *Fields* não devem ser dados que precisam de critérios de busca (indexação).
+Lembre-se que os *Fields* não são indexados, isto é, a busca por um *Field* no banco implica na leitura de todos os valores e, após isso, a sua filtragem: resultando em consultas mais lentas. Ou seja, em bom português, *Fields* não devem ser dados que precisam de critérios de busca (indexação).
 
 ##### Tags
 *Tags* representam colunas que você nomeia e armazena dados também, no mesmo formato que os *Fields*: em chave-valor. A característica do dado armazenado deve ser diferente, esse dado é uma espécie de metadado, ele será o alvo das suas consultas no banco: é esse campo aqui que estará no seu `WHERE` na hora de realizar a sua consulta.
