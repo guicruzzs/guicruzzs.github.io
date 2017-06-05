@@ -5,9 +5,166 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 04 Jun 2017 23:53:00 -0300</pubDate>
-    <lastBuildDate>Sun, 04 Jun 2017 23:53:00 -0300</lastBuildDate>
+    <pubDate>Mon, 05 Jun 2017 00:25:05 -0300</pubDate>
+    <lastBuildDate>Mon, 05 Jun 2017 00:25:05 -0300</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      
+      <item>
+        <title>Primeiros passos no InfluxDB</title>
+        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;O&lt;/span&gt;lar.&lt;/p&gt;
+
+&lt;h3 id=&quot;setup-rpido&quot;&gt;Setup rápido&lt;/h3&gt;
+&lt;p&gt;Rodando o InfluxDB num &lt;em&gt;docker container&lt;/em&gt; pra facilitar a diversão:
+$ docker run –name influxzinho influxdb # use a opção -d pra rodar na opção detached&lt;/p&gt;
+
+&lt;p&gt;Abrir o client do banco dentro do container, vamos logo à diversão:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+$ docker exec -it influxzinho bash
+# Dentro do container:
+$ influx
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Por padrão, o InfluxDB roda na porta &lt;code class=&quot;highlighter-rouge&quot;&gt;8086&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;databases&quot;&gt;Databases&lt;/h3&gt;
+&lt;p&gt;A partir daqui, utilizo o InfluxQL (Influx Query Language) para manipular o banco.
+Para listar as &lt;em&gt;databases&lt;/em&gt; existentes:
+```
+&amp;gt; SHOW DATABASES
+name: databases
+name
+—-
+_internal
+test&lt;/p&gt;
+
+&lt;blockquote&gt;
+
+  &lt;p&gt;```&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;O nome da &lt;em&gt;database&lt;/em&gt; padrão do InfluxDB é a &lt;code class=&quot;highlighter-rouge&quot;&gt;_internal&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Criar uma &lt;em&gt;database&lt;/em&gt; nova basta usar o comando
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+&amp;gt; CREATE DATABASE test
+&amp;gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Para alternar entre as &lt;em&gt;databases&lt;/em&gt;:
+```
+&amp;gt; USE test
+Using database test
+&amp;gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+### Inserção de dados
+E agora? Vamos criar uma tabela? Determinar as colunas? E também os *Fields*, as *Tags* e os seus tipos?
+Nada disso é necessário. A sintaxe da requisição de inclusão de dados é responsável por definir tada a estruturação dos dados.
+
+O comando de criação de um ponto (registro) no banco é o `INSERT` que é descrito da seguinte maneira:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;measurement&gt;[,&lt;tag_key&gt;=&lt;tag_value&gt;[,&lt;tag_key&gt;=&lt;tag_value&gt;]] &lt;field_key&gt;=&lt;field_value&gt;[,&lt;field_key&gt;=&lt;field_value&gt;] [&lt;timestamp&gt;]
+```
+O `measurement` é obrigatório, por isso é que está envolvido pelos sinais `&amp;lt; &amp;gt;`. O que está entre colchetes simboliza que o seu conteúdo é opcional.
+Na prática, os comandos tem baixa complexidade. Supondo que o eu esteja armazenando temperaturas no meu banco:
+```
+&amp;gt; INSERT temperature celcius=25.4
+&amp;gt;
+```
+
+`temperature` será a minha **measurement** e `celcius` será um **field**. Caso eu queira adicionar mais um **field**, basta utilizar uma vírgula(`,`) para separar os elementos:
+```
+&amp;gt; INSERT temperature celcius=25.4,fahrenheit=77.54
+&amp;gt;
+```
+
+Além disso, é fundamental utilizar as **tags** para indexar a busca e filtrar os registros inseridos na base. Para fazer isso, é só incluir a **tag** após o **measurement** separados por uma vírgula(`,`) e deixar um espaço (` `) no final pra separá-la dos **fields**:
+```
+&amp;gt; INSERT temperature,city=Marília celcius=25.4,fahrenheit=77.54
+&amp;gt;
+```
+
+Caso queira ter mais de uma **tag**, basta repetir a regra dos **fields**: separe eles com uma vírgula
+```
+&amp;gt; INSERT temperature,city=Marília,state=SP celcius=25.4,fahrenheit=77.54
+&amp;gt;
+```
+
+Em todos os cenários anteriores o `timestamp` é definido automaticamente com o valor do instante em que o registro é inserido. Entretanto, é possível determinar o valor do `timestamp`:
+```
+&amp;gt; INSERT temperature,city=Marília,state=SP celcius=25.4,fahrenheit=77.54 1496510681952374020
+&amp;gt;
+```
+
+### Consulta de dados
+Para exibir todos os registros de uma *measurement*, o comando em InfluxQL é muito parecido com SQL:
+```
+&amp;gt; SELECT * FROM temperature
+name: temperature
+time                celcius city      fahrenheit state
+----                ------- ----      ---------- -----
+1496510104709742573 25.4
+1496510114111767822 25.4              77.54
+1496510533023926338 25.4    Marília   77.54
+1496510681952374018 25.4    Marília   77.54      SP
+1496510681952374020 25.4    Marília   77.54      SP
+
+&amp;gt;
+```
+
+Você pode olhar os fields definidos pra essa *measurement*:
+```
+&amp;gt; SHOW FIELD KEYS FROM temperature
+name: temperature
+fieldKey   fieldType
+--------   ---------
+celcius    float
+fahrenheit float
+
+&amp;gt;
+```
+
+E também as tags:
+```
+&amp;gt; SHOW TAG KEYS FROM temperature
+name: temperature
+tagKey
+------
+city
+state
+
+&amp;gt;
+```
+
+O comando `SELECT` aceita também os condicionais de `WHERE` para filtrar os resultados:
+```
+&amp;gt; SELECT * FROM temperature WHERE city='Marília'
+name: temperature
+time                celcius city    fahrenheit state
+----                ------- ----    ---------- -----
+1496510533023926338 25.4    Marília 77.54
+1496510681952374018 25.4    Marília 77.54      SP
+1496510681952374020 25.4    Marília 77.54      SP
+
+&amp;gt;
+```
+
+### Considerações finais
+
+- HTTP
+
+Bom dia e boa sorte!
+&lt;/timestamp&gt;&lt;/field_value&gt;&lt;/field_key&gt;&lt;/field_value&gt;&lt;/field_key&gt;&lt;/tag_value&gt;&lt;/tag_key&gt;&lt;/tag_value&gt;&lt;/tag_key&gt;&lt;/measurement&gt;
+</description>
+        <pubDate>Sun, 04 Jun 2017 00:00:00 -0300</pubDate>
+        <link>http://gcruz.com.br/blog/primeiros-passos-influxdb/</link>
+        <guid isPermaLink="true">http://gcruz.com.br/blog/primeiros-passos-influxdb/</guid>
+        
+        
+      </item>
+      
     
       
       <item>
