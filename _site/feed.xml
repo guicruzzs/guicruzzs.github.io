@@ -5,9 +5,83 @@
     <description>Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza</description>
     <link>http://gcruz.com.br/</link>
     <atom:link href="http://gcruz.com.br/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 13 May 2017 22:13:54 -0300</pubDate>
-    <lastBuildDate>Sat, 13 May 2017 22:13:54 -0300</lastBuildDate>
+    <pubDate>Sun, 04 Jun 2017 23:48:41 -0300</pubDate>
+    <lastBuildDate>Sun, 04 Jun 2017 23:48:41 -0300</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      
+      <item>
+        <title>Séries temporais e o InfluxDB</title>
+        <description>&lt;p class=&quot;intro&quot;&gt;&lt;span class=&quot;dropcap&quot;&gt;O&lt;/span&gt; InfluxDB é um banco utilizado para manipular séries temporais, mas desejo tratar aqui um pouco melhor o conceito de série temporal e a estrutura básica desse banco de dados.&lt;/p&gt;
+
+&lt;p&gt;Registros de determinada variável (leia-se conjunto de observações) que representam um período são o que chamamos de série temporal. Muitas vezes armazenamos esses dados em bancos de dados tradicionais (entidade relacionamento), afinal é possível e plausível estruturar esses dados nesse tipo de modelagem.&lt;/p&gt;
+
+&lt;p&gt;Em geral, séries temporais se tornam gráficos que representam um determinado período, como por exemplo a quantidade de usuários que acessam um sistema por dia ao longo de um ano, ou ainda um gráfico das despesas mensais de uma empresa na última década. Essas séries de dados que cruzam um período são as séries temporais.&lt;/p&gt;
+
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/img/2017_06_03_steam_users.png&quot; alt=&quot;&quot; /&gt;
+    &lt;figcaption&gt;Usuários online simultaneamente no Steam (48 horas). Fonte: &lt;a href=&quot;http://store.steampowered.com/stats/?l=portuguese&quot; target=&quot;_blank&quot;&gt; Steam Game and Player Statistics&lt;/a&gt;.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Na imagem acima temos um exemplo de série temporal. Neste gráfico observamos os usuários online na plataforma de games &lt;a href=&quot;http://store.steampowered.com/&quot;&gt;Steam&lt;/a&gt;: o eixo &lt;strong&gt;y&lt;/strong&gt; mostra a quantidade de usuários ativos baseado no eixo &lt;strong&gt;x&lt;/strong&gt; que segue uma linha cronológica.&lt;/p&gt;
+
+&lt;p&gt;Um critério que vale a atenção é a frequência dos dados. Alguns autores determinam que o período de intervalo entre as observações deve ser constante, mas isso não descaracteriza a série temporal, não completamente. Dados espaçados por intervalos diferentes pode acarretar em alguns problemas do seu modelo final: como representar um gráfico de despesas mensais se faltar um mês? Ou ainda se acumular o valor no mês seguinte? Essa variação pode gerar problemas na hora de interpretar os dados coletados se não for tratado devidamente.&lt;/p&gt;
+
+&lt;p&gt;Uma série é composta por 4 tipos te variações: Tendência, Ciclo, Sazonalidade e Variações Irregulares. De toda série é possível extrair essas características, obviamente que cada série expressará de forma distintas cada tipo de variação, algumas dessas características podem ser até nulas (ou neutras).&lt;/p&gt;
+
+&lt;h3 id=&quot;e-o-tal-do-influxdb&quot;&gt;E o tal do InfluxDB?&lt;/h3&gt;
+
+&lt;p&gt;O &lt;a href=&quot;https://github.com/influxdata/influxdb&quot;&gt;InfluxDB&lt;/a&gt; é um banco de dados orientado a séries temporais, ou seja, ele foi projetado e construído pra tratar séries temporais de uma maneira otimizada em performance e modelagem.&lt;/p&gt;
+
+&lt;p&gt;Lendo a &lt;a href=&quot;https://docs.influxdata.com/influxdb/v1.2/concepts/key_concepts/&quot;&gt;documentação dos conceitos base do InfluxDB&lt;/a&gt; é possível entender melhor as características desse banco. Levantei alguns pontos que para mim foram fundamentais pra compreender a estrutura geral.&lt;/p&gt;
+
+&lt;p&gt;Dois pontos iniciais foram importantes para que eu entendesse esse banco de dados:
+1. Todo registro no banco é obrigatório que se registre a coluna &lt;code class=&quot;highlighter-rouge&quot;&gt;time&lt;/code&gt; com o conteúdo de uma timestamp.
+2. Existem dois tipos de estruturas que você pode armazenar: &lt;strong&gt;Fields&lt;/strong&gt; (dados) e &lt;strong&gt;Tags&lt;/strong&gt; (“metadados”).&lt;/p&gt;
+
+&lt;p&gt;Calma que todo mundo está nervoso. Vamos ver mais informações sobre essa estrutura de banco na sequência.&lt;/p&gt;
+
+&lt;h5 id=&quot;fields&quot;&gt;Fields&lt;/h5&gt;
+&lt;p&gt;&lt;em&gt;Fields&lt;/em&gt; representam colunas que você nomeia e armazena dados importantes para a sua representação dos dados, funciona no modelo chave-valor. A &lt;em&gt;Field Key&lt;/em&gt; é uma string e representa o nome da coluna e então, o &lt;em&gt;Field Value&lt;/em&gt; é o dado armazenado no campo,&lt;/p&gt;
+
+&lt;p&gt;Não se pode ter um registro sem pelo menos um &lt;strong&gt;Field&lt;/strong&gt;, é obrigatório, trata-se de uma informação básica. O field você pode gravar informações de todos os tipos, mas o importante é que ela represente dados que você exibiria num gráfico, cujo único papel é representar uma medida em um instante.&lt;/p&gt;
+
+&lt;p&gt;Lembre-se que os &lt;em&gt;Fields&lt;/em&gt; não são indexados, isto é, a busca por um &lt;em&gt;Field&lt;/em&gt; no banco implica na leitura de todos os valores e após isso a sua filtragem: resultando em consultas mais lentas. Ou seja, em bom português, &lt;em&gt;Fields&lt;/em&gt; não devem ser dados que precisam de critérios de busca (indexação).&lt;/p&gt;
+
+&lt;h5 id=&quot;tags&quot;&gt;Tags&lt;/h5&gt;
+&lt;p&gt;&lt;em&gt;Tags&lt;/em&gt; representam colunas que você nomeia e armazena dados também, no mesmo formato que os &lt;em&gt;Fields&lt;/em&gt;: em chave-valor. A característica do dado armazenado deve ser diferente, esse dado é uma espécie de metadado, ele será o alvo das suas consultas no banco: é esse campo aqui que estará no seu &lt;code class=&quot;highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; na hora de realizar a sua consulta.&lt;/p&gt;
+
+&lt;p&gt;As &lt;em&gt;Tags&lt;/em&gt; são indexadas, ou seja, as preferencialmente adotadas como critério de busca. O banco de dados considera elas como opcionais na estrutura de dados, mas se não utiizá-las implicará em busca lentas.&lt;/p&gt;
+
+&lt;p&gt;O formato da chave e do valor das &lt;em&gt;Tags&lt;/em&gt; são &lt;em&gt;strings&lt;/em&gt;, ou seja, quando armazenar alguma informação, mesmo que de caráter numérico, será convertida em &lt;em&gt;string&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;measurement&quot;&gt;Measurement&lt;/h5&gt;
+&lt;p&gt;&lt;em&gt;Measurement&lt;/em&gt; é um agrupador de &lt;em&gt;Tags&lt;/em&gt; e &lt;em&gt;Fields&lt;/em&gt;, ao traçar um paralelo ao modelo de entidade relacionamento, o conceito de &lt;em&gt;Measurement&lt;/em&gt; é equivalente ao da tabela. O nome do &lt;em&gt;Measurement&lt;/em&gt; representa o valor dos valores que são armazenados nele, tal qual uma tabela.&lt;/p&gt;
+
+&lt;h5 id=&quot;srie-temporal&quot;&gt;Série Temporal&lt;/h5&gt;
+&lt;p&gt;Uma série (&lt;em&gt;series&lt;/em&gt;) é um conjunto de dados (pontos) resultantes da parametrização das &lt;em&gt;Tags&lt;/em&gt;. Isto é, quando realizar uma consulta no &lt;em&gt;Measurement&lt;/em&gt; com filtros (condições comparando as &lt;em&gt;Tags&lt;/em&gt;), a resultante é uma série temporal.&lt;/p&gt;
+
+&lt;h5 id=&quot;database&quot;&gt;Database&lt;/h5&gt;
+&lt;p&gt;&lt;em&gt;Database&lt;/em&gt; é o mesmo conceito do que o já aplicado e conhecido em bancos SQL tradicionais, ela agrupa as “tabelas”, nesse caso, as &lt;em&gt;Measurements&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;ltimos-detalhes&quot;&gt;Últimos detalhes&lt;/h5&gt;
+&lt;p&gt;O &lt;em&gt;Field&lt;/em&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;time&lt;/code&gt; e ao menos mais um outro &lt;em&gt;Field&lt;/em&gt; são obrigatórios por serem a base de um banco de dados orientado a séries temporais, afinal o principal objetivo é representar uma série &lt;strong&gt;temporal&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;tudo-certo-ento&quot;&gt;Tudo certo então?&lt;/h3&gt;
+&lt;p&gt;Descrevi os conceitos sem trazer muitos exemplos, mas não fique triste comigo. O &lt;a href=&quot;https://docs.influxdata.com/influxdb/v1.2/concepts/key_concepts/#sample-data&quot;&gt;exemplo na página do InfluxDB&lt;/a&gt; é muito ilustrativo, você pode conferir lá esse conteúdo também.&lt;/p&gt;
+
+&lt;p&gt;Espero que esse material tenha ajudado a compreender um pouco melhor esse conceito. Qualquer comentário construtivo ou sugestão é muito bem vindo! :)&lt;/p&gt;
+
+&lt;p&gt;Bom dia e boa sorte!&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 03 Jun 2017 00:00:00 -0300</pubDate>
+        <link>http://gcruz.com.br/blog/series-temporais-e-influxdb/</link>
+        <guid isPermaLink="true">http://gcruz.com.br/blog/series-temporais-e-influxdb/</guid>
+        
+        
+      </item>
+      
     
       
       <item>
@@ -96,7 +170,7 @@ Exportable USB devices
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo ./usbip attach -r 192.168.0.17 -b 1-1.1.2&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;E voilá! Você consegue então utilizar por meio da rede, um dispositivo USB que está em outra máquina!&lt;/p&gt;
+&lt;p&gt;E voilà! Você consegue então utilizar por meio da rede, um dispositivo USB que está em outra máquina!&lt;/p&gt;
 
 &lt;h3 id=&quot;consideraes-finais&quot;&gt;Considerações finais&lt;/h3&gt;
 
