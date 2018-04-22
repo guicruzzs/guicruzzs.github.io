@@ -2,7 +2,7 @@
 layout: default
 ---
 <div class="row">
-  <div class="col s12 m8 offset-m2">
+  <div class="col s12 m10 offset-m1">
     {% if page.image %}
       <div class="featuredImage">
         <img src="{{ '/assets/img/' | prepend: site.baseurl | append: page.image }}" alt="" />
@@ -16,19 +16,17 @@ layout: default
   </div>
 
   <!-- POST NAVIGATION -->
-  <div class="col s12 m8 offset-m2 gc-post-nav">
+  <div class="col s12 m10 offset-m1 gc-post-nav">
     {% if page.previous.url %}
       <div class="col s6">
         <a class="waves-effect waves-light btn" href="{{ page.previous.url | prepend: site.baseurl }}">
-           <i class="material-icons left">chevron_left</i>
+          <i class="material-icons left">chevron_left</i>
           {{ page.previous.title }}
         </a>
       </div>
-    {% else %}
-      <div class="col offset-s6"></div>
     {% endif %}
     {% if page.next.url %}
-      <div class="col s6 right-align">
+      <div class="col {% unless page.previous.url %}offset-s6 {% endunless %}s6 right-align">
         <a class="waves-effect waves-light btn" href="{{ page.next.url | prepend: site.baseurl }}">
           {{ page.next.title }}
           <i class="material-icons right">chevron_right</i>
@@ -38,7 +36,7 @@ layout: default
   </div>
 
   <!-- COMMENTS -->
-  <div class="col s12 m8 offset-m2">
+  <div class="col s12 m10 offset-m1">
     <div id="disqus_thread"></div>
     <script>
       var disqus_config = function () {
