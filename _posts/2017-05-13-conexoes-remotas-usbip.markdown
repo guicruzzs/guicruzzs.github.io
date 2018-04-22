@@ -2,6 +2,7 @@
 layout: post
 title:  "Conexões remotas de USB via usbip"
 date:   2017-05-13
+description: Imagine utilizar a rede para compartilhar uma conexão de um dispositivo USB, seja ele uma câmera, um HD externo, mouse, impressora, ou qualquer outro dispositivo. Há uma ferramenta no repositório Linux que resolve isso.
 ---
 
 <p class="intro"><span class="dropcap">I</span>magine utilizar a rede para compartilhar uma conexão de um dispositivo USB, seja ele uma câmera, um HD externo, mouse, impressora, ou qualquer outro dispositivo. Há uma ferramenta no repositório Linux que resolve isso.</p>

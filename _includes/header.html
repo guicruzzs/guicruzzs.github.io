@@ -1,10 +1,10 @@
-<nav class="white" role="navigation">
+<nav class="gc-header white" role="navigation">
   <div class="nav-wrapper container">
-    <a href="/" class="brand-logo">{{ site.title }}</a>
+    <a href="/" class="white-text brand-logo">{{ site.title }}<br></a>
     <ul class="right hide-on-med-and-down">
       {% for link in site.navigation %}
         <li class="{% if page.url contains link.url %}active{% endif %}">
-          <a href="{{ link.url | prepend: site.baseurl }}">{{ link.title }}</a>
+          <a href="{{ link.url | prepend: site.baseurl }}" class="white-text"><strong>{{ link.title }}</strong></a>
         </li>
       {% endfor %}
     </ul>

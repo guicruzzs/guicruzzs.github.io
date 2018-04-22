@@ -2,6 +2,7 @@
 layout: post
 title:  "Seja Bem Vindo :)"
 date:   2016-10-26
+description: Começo aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.
 ---
 
 <p class="intro"><span class="dropcap">C</span>omeço aqui uma nova jornada, assumi comigo a missão de trazer conhecimentos de tecnologia que venho adquirindo ao longo do tempo.</p>

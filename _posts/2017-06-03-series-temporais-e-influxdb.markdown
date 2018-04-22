@@ -2,6 +2,7 @@
 layout: post
 title:  "Séries temporais e o InfluxDB"
 date:   2017-06-03
+description: O InfluxDB é um banco utilizado para manipular séries temporais, mas desejo tratar aqui um pouco melhor o conceito de série temporal e a estrutura básica desse banco de dados.
 ---
 
 <p class="intro"><span class="dropcap">O</span> InfluxDB é um banco utilizado para manipular séries temporais, mas desejo tratar aqui um pouco melhor o conceito de série temporal e a estrutura básica desse banco de dados.</p>

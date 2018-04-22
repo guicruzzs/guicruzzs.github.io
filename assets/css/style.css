@@ -18,7 +18,7 @@ p {
 }
 
 .sidenav-trigger {
-  color: #26a69a;
+  color: white;
 }
 
 .parallax-container {
@@ -53,4 +53,21 @@ p {
 }
 .icon-block .material-icons {
   font-size: inherit;
+}
+
+.gc-text-left {
+  text-align: left;
+}
+
+.gc-home-post .gc-home-date {
+  justify-content: center;
+}
+
+.gc-header {
+  background: url('/assets/img/header.jpg');
+}
+
+.gc-divider {
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%
 }
