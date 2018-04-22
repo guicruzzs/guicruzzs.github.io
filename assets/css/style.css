@@ -83,6 +83,10 @@ p {
   font-size: 18px;
 }
 
+.row div.gc-post-nav {
+  padding: 25px 0;
+}
+
 .intro::first-letter {
     font-size: 300%;
     line-height: 45px;
