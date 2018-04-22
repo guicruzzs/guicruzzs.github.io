@@ -9,7 +9,7 @@ title: Guilherme Cruz
       <h4><strong>
         <a href="{{ post.url | prepend: site.baseurl }}" class="teal-text">{{ post.title }}</a>
       </strong></h4>
-      <p class="gc-home-date valign-wrapper"><i class="material-icons">today</i>{{ post.date | date: '%B %d, %Y' }}</p>
+      <div class="gc-home-date valign-wrapper grey-text text-darken-1"><i class="material-icons">today</i>{{ post.date | date: '%B %d, %Y' }}</div>
       <p class="gc-text-left">{% if post.description %}{{ post.description | strip_html | strip_newlines | truncate: 250 }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 250 }}{% endif %}</p>
       <div class="gc-divider"></div>
     </div>

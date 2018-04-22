@@ -20,14 +20,9 @@ navigation:
    url: /about
 
 social:
-  twitter: cruzguilherm
-  facebook: guilhermecruz.zs
-  email: guicruz.zs@gmail.com
-
-social:
   github: https://github.com/guicruzzs
   facebook: https://www.facebook.com/guilhermecruz.zs
-  linkedin: www.linkedin.com/in/cruzguilherme
+  linkedin: https://www.linkedin.com/in/cruzguilherme
   twitter: https://twitter.com/cruzguilherm
 
 google_analytics: "UA-54921110-2"
