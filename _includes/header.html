@@ -1,6 +1,9 @@
 <nav class="gc-header white" role="navigation">
   <div class="nav-wrapper container">
-    <a href="/" class="white-text brand-logo">{{ site.title }}<br></a>
+    <a href="/" class="white-text brand-logo">
+      <span class="hide-on-small-only">{{ site.title }}</span>
+      <span class="hide-on-med-and-up">gcruz</span>
+    </a>
     <ul class="right hide-on-med-and-down">
       {% for link in site.navigation %}
         <li class="{% if page.url contains link.url %}active{% endif %}">
