@@ -3,23 +3,32 @@ layout: default
 title: Guilherme Cruz
 ---
 
-<div class="home" id="home">
-  <ul class="posts noList">
-    {% for post in paginator.posts %}
-      <li>
-        <span class="date">{{ post.date | date: '%B %d, %Y' }}</span>
-        <h3><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-        <p class="description">{% if post.description %}{{ post.description | strip_html | strip_newlines | truncate: 250 }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 250 }}{% endif %}</p>
-      </li>
-    {% endfor %}
-  </ul>
+{% for post in paginator.posts %}
+  <div class="row">
+    <div class="col s12 m6 offset-m3 center gc-home-post">
+      <h4><strong>
+        <a href="{{ post.url | prepend: site.baseurl }}" class="teal-text">{{ post.title }}</a>
+      </strong></h4>
+      <div class="gc-home-date valign-wrapper grey-text text-darken-1"><i class="material-icons">today</i>{{ post.date | date: '%B %d, %Y' }}</div>
+      <p class="gc-text-left">{% if post.description %}{{ post.description | strip_html | strip_newlines | truncate: 250 }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 250 }}{% endif %}</p>
+      <div class="gc-divider"></div>
+    </div>
+  </div>
+{% endfor %}
+
+<div class="row">
   <!-- Pagination links -->
-  <div class="pagination">
+  <div class="col s12 m6 offset-m3">
+    <br>
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="previous button__outline">Posts mais novos</a>
+      <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="waves-effect waves-light btn teal white-text right">
+        Posts mais novos
+      </a>
     {% endif %}
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="next button__outline">Posts mais antigos</a>
+      <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="waves-effect waves-light btn teal white-text right">
+        Posts mais antigos
+      </a>
     {% endif %}
   </div>
 </div>

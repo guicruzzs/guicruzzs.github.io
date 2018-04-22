@@ -2,9 +2,10 @@
 layout: post
 title:  "Primeiros passos no InfluxDB"
 date:   2017-06-04
+description: Manipular o InfluxDB pode parecer uma missão muito difícil inicialmente, mas quem está acostumado com SQL verá que não é tão diferente disso.
 ---
 
-<p class="intro"><span class="dropcap">M</span>anipular o InfluxDB pode parecer uma missão muito difícil inicialmente, mas quem está acostumado com SQL verá que não é tão diferente disso.</p>
+<h5 class="intro">Manipular o InfluxDB pode parecer uma missão muito difícil inicialmente, mas quem está acostumado com SQL verá que não é tão diferente disso.</h5>
 
 Eu já falei sobre a estrutura do InfluxDB e sobre o que é uma série temporal em [outro post aqui no blog](/blog/series-temporais-e-influxdb). Desta vez, quero mostrar a manipulação dos dados no banco, então bora colocar a mão na massa!
 

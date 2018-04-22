@@ -2,6 +2,7 @@
 layout: post
 title:  "Primeiras dicas em Go"
 date:   2016-10-30
+description: Rolou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.
 ---
 
 <p class="intro"><span class="dropcap">R</span>olou um workshop de Go essa semana, gostaria de compartilhar alguns conhecimentos e apresentar uma oportunidade pra conhecer mais sobre o assunto.</p>

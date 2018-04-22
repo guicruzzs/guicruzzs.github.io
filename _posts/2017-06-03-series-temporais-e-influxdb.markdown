@@ -2,6 +2,7 @@
 layout: post
 title:  "Séries temporais e o InfluxDB"
 date:   2017-06-03
+description: O InfluxDB é um banco utilizado para manipular séries temporais, mas desejo tratar aqui um pouco melhor o conceito de série temporal e a estrutura básica desse banco de dados.
 ---
 
 <p class="intro"><span class="dropcap">O</span> InfluxDB é um banco utilizado para manipular séries temporais, mas desejo tratar aqui um pouco melhor o conceito de série temporal e a estrutura básica desse banco de dados.</p>
@@ -10,8 +11,8 @@ Registros de determinada variável (leia-se conjunto de observações) que repre
 
 Em geral, séries temporais se tornam gráficos que representam um determinado período, como por exemplo a quantidade de usuários que acessam um sistema por dia ao longo de um ano, ou ainda um gráfico das despesas mensais de uma empresa na última década. Essas séries de dados que cruzam um período são as séries temporais.
 
-<figure>
-    <img src="/assets/img/2017_06_03_steam_users.png" alt="">
+<figure class="center">
+    <img src="/assets/img/posts/2017_06_03_steam_users.png" alt="">
     <figcaption>Usuários online simultaneamente no Steam (48 horas). Fonte: <a href="http://store.steampowered.com/stats/?l=portuguese" target="_blank"> Steam Game and Player Statistics</a>.</figcaption>
 </figure>
 

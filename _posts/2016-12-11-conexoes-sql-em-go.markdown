@@ -2,6 +2,7 @@
 layout: post
 title:  "Conexões SQL em Go"
 date:   2016-12-11
+description: Utilizando conexões SQL em Go por meio da interface de database/sql? Tenho alguns pontos pra compartilhar contigo.
 ---
 
 <p class="intro"><span class="dropcap">U</span>tilizando conexões SQL em Go por meio da interface de <a href="https://golang.org/pkg/database/sql/">database/sql</a>? Tenho alguns pontos pra compartilhar contigo.</p>
