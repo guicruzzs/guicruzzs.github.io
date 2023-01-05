@@ -1,7 +1,7 @@
 title: Guilherme Cruz
 description: Espaço desse desenvolvedor amante de Tartarugas Ninja e Pizza
 
-url: http://gcruz.com.br
+url: https://gcruz.com.br
 baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/

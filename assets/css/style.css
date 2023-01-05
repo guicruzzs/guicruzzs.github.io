@@ -97,6 +97,10 @@ p {
     padding-left: 3px;
 }
 
+#disqus_recommendations {
+  display: none;
+}
+
 /**
  * Blockquotes
  */
